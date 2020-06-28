@@ -1,0 +1,14 @@
+administratorpuskes@gmail.com
+admin
+"superadmin"
+
+admin.puskesmas@gmail.com
+adminpuskes
+"admin2"
+
+pendaftaran@gmail.com
+registrasi
+
+apotek@gmail.com
+apotek
+
