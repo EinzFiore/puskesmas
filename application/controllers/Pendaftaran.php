@@ -133,10 +133,6 @@ class Pendaftaran extends CI_Controller
         $pdf->Cell(50, 7, 'No BPJS  ', 1, 1, 'C');
 
 
-        
-
-
-
         $resep = $this->db->query($sql_data_resep)->result();
         foreach ($resep as $r) {
         $pdf->Cell(1,7, '',0,0,'C');
@@ -606,8 +602,8 @@ function cetakbulan(){
     {
         $noreg = noRegistrasiotomatis();
         $data = array(
-            'button' => 'Tambah',
-            'action' => site_url('pendaftaran/create_action'),
+        'button' => 'Tambah',
+        'action' => site_url('pendaftaran/create_action'),
         'no_registrasi' => set_value('no_registrasi', $noreg),
         'no_rawat' => set_value('no_rawat'),
         'no_rekamedis' => set_value('no_rekamedis'),

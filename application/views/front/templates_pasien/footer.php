@@ -24,5 +24,71 @@
   <script src="<?= base_url('vendor/stisla') ?>/assets/js/custom.js"></script>
 
   <!-- Page Specific JS File -->
+  <script src="<?php echo base_url('assets/js/jquery-1.11.2.min.js') ?>"></script>
+<script src="<?php echo base_url('assets/datatables/jquery.dataTables.js') ?>"></script>
+<script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
+
+
+
+<script type="text/javascript">
+    
+    function auto_nama_dokter(){
+         //autocomplete
+        $("#kode_dokter_penanggung_jawab").autocomplete({
+            source: "<?php echo base_url() ?>index.php/pendaftaran/autocompleteDokter",
+            minLength: 1
+        });
+    }
+    
+   
+    function autocomplete_norekmedis(){
+        //autocomplete
+        $("#no_rekamedis").autocomplete({
+            source: "<?php echo base_url() ?>index.php/pendaftaran/autonorekamedis",
+            minLength: 1
+        });
+        autofill();
+    }
+
+    function autofill(){
+
+        var no_rekamedis = $("#no_rekamedis").val();
+        $.ajax({
+            url: "<?php echo base_url()?>index.php/pendaftaran/autofill",
+            data : "no_rekamedis="+no_rekamedis,
+        }).success(function (data) {
+            var json = data,
+            obj = JSON.parse(json);
+            $('#nama_pasien').val(obj.nama_pasien);
+            $('#tanggal_lahir').val(obj.tanggal_lahir);
+            $('#no_bpjs').val(obj.no_bpjs);
+        }); 
+    }
+
+    function tampilkan(){
+  var id_user=document.getElementById("form1").status_pasien.value;
+  if (id_user=="BPJS")
+    {
+        document.getElementById("no_bpjs").readOnly = false;
+        autocomplete_norekmedis();
+        
+    }
+  else if (id_user=="Umum")
+    {
+       document.getElementById("no_bpjs").readOnly = true;
+       document.getElementById("no_bpjs").value = "-";
+
+    }
+    else if (id_user=="")
+    {
+
+
+    }
+}
+   
+</script>
+
+
+
 </body>
 </html>
