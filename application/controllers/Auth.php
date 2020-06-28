@@ -35,6 +35,12 @@ if ($this->form_validation->run() == FALSE) {
         
         if($users->num_rows()>0){
             $user = $users->row_array();
+            if($user['id_user_level'] == 7){
+                if(password_verify($password,$user['password'])){
+                    $this->session->set_userdata($user);
+                    redirect('Dashboad');
+                }
+            }
             if(password_verify($password,$user['password'])){
                 // retrive user data to session
                 $this->session->set_userdata($user);
