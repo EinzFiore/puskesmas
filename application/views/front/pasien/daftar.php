@@ -48,17 +48,17 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label>No. Rekam Medis</label>
-                                            <input type="text" class="form-control" name="no_rekamedis" id="no_rekamedis" placeholder="Masukkan No Rekamedis" value="<?php echo $no_rekamedis; ?>" onkeyup="autocomplete_norekmedis()" />
+                                            <input type="text" class="form-control" name="no_rekamedis" id="no_rekamedis" placeholder="Masukkan No Rekamedis" value="<?= $pasien['no_rekamedis']; ?>" readonly />
                                             <?php echo form_error('no_rekamedis') ?>
                                         </div>
                                         <div class="form-group">
                                             <label>Nama Pasien</label>
-                                            <input type="text" class="form-control" name="nama_pasien" id="nama_pasien" placeholder="Nama Pasien"  />
+                                            <input type="text" class="form-control" value="<?= $pasien['nama_pasien']; ?>" name="nama_pasien" id="nama_pasien" placeholder="Nama Pasien"  readonly/>
                                             <?php echo form_error('nama_pasien') ?>
                                         </div>
                                         <div class="form-group">
                                             <label>Tanggal Lahir</label>
-                                            <input type="text" class="form-control" name="tanggal_lahir" id="tanggal_lahir" placeholder="Tanggal Lahir"/>
+                                            <input type="text" class="form-control" value="<?= $pasien['tanggal_lahir']; ?>" name="tanggal_lahir" id="tanggal_lahir" placeholder="Tanggal Lahir" readonly/>
                                             <?php echo form_error('tanggal_lahir') ?>
                                         </div>
                                         <div class="form-group">

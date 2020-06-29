@@ -7,7 +7,7 @@
             </div>
             <form action="<?php echo $action; ?>" method="post" id="form1" name="form1">
             
-<table class='table table-bordered>'>        
+        <table class='table table-bordered>'>        
 
 	    <tr><td width='200'>No KTP / ID <?php echo form_error('no_ktp') ?></td><td><input type="text" class="form-control" name="no_ktp" id="no_ktp" placeholder="No KTP / ID" value="<?php echo $no_ktp; ?>" /></td></tr>
 	    <tr><td width='200'>No BPJS <?php echo form_error('no_bpjs') ?></td><td><input type="text" class="form-control" name="no_bpjs" id="no_bpjs" placeholder="No BPJS" value="<?php echo $no_bpjs; ?>" /></td></tr>

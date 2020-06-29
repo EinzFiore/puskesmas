@@ -238,22 +238,21 @@ class Pasien extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'no_ktp' => $this->input->post('no_ktp',TRUE),
-		'no_bpjs' => $this->input->post('no_bpjs',TRUE),
-        'no_rekamedis' => $this->input->post('no_rekamedis', TRUE),
-		'nama_pasien' => $this->input->post('nama_pasien',TRUE),
-		'jenis_kelamin' => $this->input->post('jenis_kelamin',TRUE),
-		'tempat_lahir' => $this->input->post('tempat_lahir',TRUE),
-		'tanggal_lahir' => date('d-m-Y', strtotime($ttl)),
-		'alamat' => $this->input->post('alamat',TRUE),
-        'status_pasien' => $this->input->post('status_pasien',TRUE),
-
-	    );
+            'no_ktp' => $this->input->post('no_ktp',TRUE),
+            'no_bpjs' => $this->input->post('no_bpjs',TRUE),
+            'no_rekamedis' => $this->input->post('no_rekamedis', TRUE),
+            'nama_pasien' => $this->input->post('nama_pasien',TRUE),
+            'jenis_kelamin' => $this->input->post('jenis_kelamin',TRUE),
+            'tempat_lahir' => $this->input->post('tempat_lahir',TRUE),
+            'tanggal_lahir' => date('d-m-Y', strtotime($ttl)),
+            'alamat' => $this->input->post('alamat',TRUE),
+            'status_pasien' => $this->input->post('status_pasien',TRUE),
+        );
 
             $this->Tbl_pasien_model->insert($data);
             $this->session->set_flashdata('message', '<div class="alert alert-success">Data Berhasil Masuk
             </div>');  
-            redirect(site_url('pasien'));
+            redirect(site_url('dashboard/update_stat'));
         }
     }
     
@@ -265,16 +264,15 @@ class Pasien extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('pasien/update_action'),
-		'no_rekamedis' => set_value('no_rekamedis', $row->no_rekamedis),
-		'no_ktp' => set_value('no_ktp', $row->no_ktp),
-		'no_bpjs' => set_value('no_bpjs', $row->no_bpjs),
-		'nama_pasien' => set_value('nama_pasien', $row->nama_pasien),
-		'jenis_kelamin' => set_value('jenis_kelamin', $row->jenis_kelamin),
-		'tempat_lahir' => set_value('tempat_lahir', $row->tempat_lahir),
-		'tanggal_lahir' => set_value('tanggal_lahir', $row->tanggal_lahir),
-		'alamat' => set_value('alamat', $row->alamat),
-        'status_pasien' => set_value('status_pasien', $row->status_pasien),
-
+                'no_rekamedis' => set_value('no_rekamedis', $row->no_rekamedis),
+                'no_ktp' => set_value('no_ktp', $row->no_ktp),
+                'no_bpjs' => set_value('no_bpjs', $row->no_bpjs),
+                'nama_pasien' => set_value('nama_pasien', $row->nama_pasien),
+                'jenis_kelamin' => set_value('jenis_kelamin', $row->jenis_kelamin),
+                'tempat_lahir' => set_value('tempat_lahir', $row->tempat_lahir),
+                'tanggal_lahir' => set_value('tanggal_lahir', $row->tanggal_lahir),
+                'alamat' => set_value('alamat', $row->alamat),
+                'status_pasien' => set_value('status_pasien', $row->status_pasien),
 	    );
             $this->template->load('template','pasien/tbl_pasien_form', $data);
         } else {

@@ -1,7 +1,7 @@
+<!-- Pak Wardi -->
+
 <?php
 Class Auth extends CI_Controller{
-    
-    
     
     function index(){
         $this->load->view('auth/login');
@@ -35,10 +35,16 @@ if ($this->form_validation->run() == FALSE) {
         
         if($users->num_rows()>0){
             $user = $users->row_array();
+            if($user['id_user_level'] == 8){
+                if(password_verify($password,$user['password'])){
+                    $this->session->set_userdata($user);
+                    redirect('dashboard');
+                }
+            }
             if($user['id_user_level'] == 7){
                 if(password_verify($password,$user['password'])){
                     $this->session->set_userdata($user);
-                    redirect('Dashboad');
+                    redirect('dashboad');
                 }
             }
             if(password_verify($password,$user['password'])){

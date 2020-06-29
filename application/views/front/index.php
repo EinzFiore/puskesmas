@@ -34,7 +34,7 @@
                                 </>
                             </ul>
                         </div>
-                        <a class="btn_2 d-none d-lg-block" data-toggle="modal" href="#" data-target="#exampleModal">Login</a>
+                        <a class="btn_2 d-none d-lg-block" href="<?= base_url('auth') ?>">Login</a>
                     </nav>
                 </div>
             </div>
