@@ -9,6 +9,56 @@
             <p class="section-lead">Components that can be used to make something bigger than the header.</p>
 
             <div class="row">
+                <?php if($pasien['is_active'] == 1) : ?>
+                    <div class="col-md-10 mb-4">
+                        <div class="hero-inner">
+                            <div class="card">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No. Rawat</th>
+                                            <th scope="col">No. Rekam Medis</th>
+                                            <th scope="col">Nama Pasien</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Dokter Penanggung Jawab</th>
+                                            <th scope="col">Poli</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><?= $pendaftaran['no_rawat']; ?></td>
+                                            <td><?= $pendaftaran['no_rekamedis']; ?></td>
+                                            <td><?= $pendaftaran['nama_pasien']; ?></td>
+                                            <td><?= $pendaftaran['status_pasien']; ?></td>
+                                            <td><?= $pendaftaran['nama_dokter']; ?></td>
+                                            <td><?= $pendaftaran['nama_poli']; ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-md-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Nomor Antri</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="ml-4"><?= $pendaftaran['no_registrasi']; ?></h3>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="<?= site_url('pendaftaran/cetakantrian/'.$pendaftaran['no_rawat']) ?>" class="btn btn-primary btn-lg ml-3">Cetak</a>
+                                </div>
+                            </div>
+                        </div>
+                
+                <?php endif; ?>
+
+
+
+
+                <!-- Kalau User Belum Pernah Daftar tampilkan form daftar -->
+                <?php if($pasien['is_active'] == 0) : ?>
                 <div class="col-md-5 mb-4">
                         <div class="hero-inner">
                             <div class="card">
@@ -96,6 +146,10 @@
                         </div>
                     </div>
                 </div>
+                <?php endif; ?>
+                <!-- END Form Daftar -->
+
+
             </div>
         </section>
     </div>

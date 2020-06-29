@@ -6,6 +6,7 @@ class Dashboard extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Tbl_pendaftaran_model');
+        $this->load->model('Pasien');
         $this->load->library('form_validation');
         $this->load->model('Tbl_pasien_model');
     }
@@ -69,6 +70,7 @@ class Dashboard extends CI_Controller
         $data['pasien'] = $this->db->get()->row_array();
         $data['judul'] = 'Daftar';
         $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
+        $data['pendaftaran'] = $this->Pasien->data_daftar()->row_array();
         $this->load->view('front/templates_pasien/header', $data);
         $this->load->view('front/templates_pasien/sidebar', $data);
         $this->load->view('front/pasien/daftar', $data);
