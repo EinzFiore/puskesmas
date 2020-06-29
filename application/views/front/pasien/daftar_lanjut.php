@@ -64,23 +64,21 @@
                     <div class="col-md-7 mb-4">
                         <div class="hero-inner">
                             <div class="card">
-                                <form action="#" method="post">
+                                <form action="<?= base_url('dashboard/update_form') ?>" method="post">
                                     <div class="card-header">
                                         <h4>Data Pasien</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label>No. Rekam Medis</label>
-                                            <input type="text" class="form-control" name="no_rekamedis" id="no_rekamedis" placeholder="Masukkan No Rekamedis" value="" readonly />
-                                            
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Status Pasien</label>
-                                            <select id="status_pasien" name="status_pasien" onchange="tampilkan()" class="form-control">
+                                            <label>Dokter</label>
+                                            <select id="dokter" name="kd_dokter" class="form-control">
                                                     <option value="" disabled="disabled" selected />Pilih</option>
-                                                    <option value="BPJS">BPJS</option>
-                                                    <option value="Umum">Umum</option>
+                                                    <?php foreach($jadwal_dokter as $jd) : ?>
+                                                    <option value="<?= $jd['kode_dokter'] ?>"><?= $jd['nama_dokter'] ?></option>
+
+                                                    <?php endforeach; ?>
                                             </select>
+                                            <button type="submit" class="btn btn-primary mt-3">Pilih Dokter</button>
                                         </div>
                                     </div>
                                 </form>

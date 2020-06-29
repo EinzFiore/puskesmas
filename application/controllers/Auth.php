@@ -44,7 +44,7 @@ if ($this->form_validation->run() == FALSE) {
             if($user['id_user_level'] == 7){
                 if(password_verify($password,$user['password'])){
                     $this->session->set_userdata($user);
-                    redirect('dashboad');
+                    redirect('dashboard');
                 }
             }
             if(password_verify($password,$user['password'])){

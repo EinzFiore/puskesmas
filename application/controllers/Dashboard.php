@@ -154,6 +154,17 @@ class Dashboard extends CI_Controller
             </div>');  
             redirect(site_url('dashboard/daftar_lanjut'));
     }
+
+    function update_form()
+    {
+        $data = array(
+            'kode_dokter_penanggung_jawab' => $this->input->post('kd_dokter'),
+        );
+        $this->db->where('user_id',$this->session->userdata('id_users'));
+        $this->db->update('tbl_pendaftaran',$data);
+        
+        redirect(base_url('dashboard'));
+    }
 }
 
 
