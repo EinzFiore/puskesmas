@@ -9,7 +9,10 @@
             <p class="section-lead">Components that can be used to make something bigger than the header.</p>
 
             <div class="row">
-                <?php if($pasien['is_active'] == 1) : ?>
+                <?php 
+                $tgl = date('Y-m-d');
+                if($pasien['is_active'] == 1 AND $pendaftaran['tanggal_daftar'] == $tgl )  : ?>
+
                     <div class="col-md-10 mb-4">
                         <div class="hero-inner">
                             <div class="card">
@@ -55,10 +58,8 @@
                 <?php endif; ?>
 
 
-
-
                 <!-- Kalau User Belum Pernah Daftar tampilkan form daftar -->
-                <?php if($pasien['is_active'] == 0) : ?>
+                <?php if($pasien['is_active'] == 0 AND $pendaftaran['tanggal_daftar'] != $tgl ) : ?>
                 <div class="col-md-5 mb-4">
                         <div class="hero-inner">
                             <div class="card">
@@ -68,8 +69,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label>Nomor Rawat</label>
-                                            <input type="text" name="no_rawat" id="no_rawat" value="<?php echo date('Y-m-d-').noRegistrasiotomatis(); ?>" class="form-control" readonly>
+                                            <input type="hidden" name="no_rawat" id="no_rawat" value="<?php echo date('Y-m-d-').noRegistrasiotomatis(); ?>" class="form-control" readonly>
                                             <?php echo form_error('no_rawat') ?>
                                         </div>
                                         <div class="form-group">

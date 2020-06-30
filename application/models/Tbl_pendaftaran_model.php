@@ -68,6 +68,7 @@ class Tbl_pendaftaran_model extends CI_Model
 	$this->db->or_like('nama_penanggung_jawab', $q);
 	$this->db->or_like('hubungan_dengan_penanggung_jawab', $q);
 	$this->db->or_like('alamat_penanggung_jawab', $q);
+	$this->db->or_like('user_id', $q);
 	$this->db->from($this->table);
         return $this->db->count_all_results();
     }

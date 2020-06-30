@@ -70,7 +70,7 @@ class Dashboard extends CI_Controller
         $data['pasien'] = $this->db->get()->row_array();
         $data['judul'] = 'Daftar';
         $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
-        $data['pendaftaran'] = $this->Pasien->data_daftar()->row_array();
+        $data['pendaftaran'] = $this->Pasien->data_pendaftar()->row_array();
         $this->load->view('front/templates_pasien/header', $data);
         $this->load->view('front/templates_pasien/sidebar', $data);
         $this->load->view('front/pasien/daftar', $data);
@@ -81,11 +81,13 @@ class Dashboard extends CI_Controller
     {
         $data['judul'] = 'Daftar';
         $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
-        $data['pendaftar'] = $this->db->get_where('tbl_pendaftaran',['user_id' => $this->session->userdata['id_users']])->row_array();
+        $tgl = date('Y-m-d');
+        $data['pendaftar'] = $this->Pasien->data_daftar($tgl)->row_array();
         $this->db->select('*');
         $this->db->from('tbl_jadwal_praktek_dokter');
         $this->db->join('tbl_poli','tbl_poli.id_poli = tbl_jadwal_praktek_dokter.id_poli');
         $this->db->join('tbl_dokter','tbl_dokter.kode_dokter = tbl_jadwal_praktek_dokter.kode_dokter');
+        $this->db->join('tbl_pendaftaran','tbl_pendaftaran.no_rawat = tbl_jadwal_praktek_dokter.id_jadwal','LEFT');
         $this->db->where('tbl_jadwal_praktek_dokter.id_poli',$data['pendaftar']['id_poli']);
         $data['jadwal_dokter'] = $this->db->get()->result_array();
         $data['hari'] = array (
@@ -112,12 +114,23 @@ class Dashboard extends CI_Controller
         $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
         $data = array (
             'id_user_level' => 7,
+            ''
         );
         $this->db->where('email',$this->session->userdata('email'));
         $this->db->update('tbl_user',$data);
         redirect('dashboard');
     }
-
+    
+    function update_active()
+    {
+        $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
+        $data = array (
+            'is_active' => 1,
+        );
+        $this->db->where('user_id',$this->session->userdata('id_users'));
+        $this->db->update('tbl_pasien',$data);
+        redirect('dashboard/daftar');
+    }
 
     function noRekammedisOtomatis(){
         $ci = get_instance();
@@ -147,9 +160,10 @@ class Dashboard extends CI_Controller
         'alamat_penanggung_jawab' => $this->input->post('alamat_penanggung_jawab',TRUE),
         'status_pasien' => $this->input->post('status_pasien',TRUE),
         'no_bpjs' => $this->input->post('no_bpjs',TRUE),
-
+        'user_id' => $this->session->userdata('id_users'),
 
         );
+
 
             $this->Tbl_pendaftaran_model->insert($data);
             $this->session->set_flashdata('message', '<div class="alert alert-success">Data Berhasil Masuk
@@ -165,7 +179,7 @@ class Dashboard extends CI_Controller
         $this->db->where('user_id',$this->session->userdata('id_users'));
         $this->db->update('tbl_pendaftaran',$data);
         
-        redirect(base_url('dashboard'));
+        redirect(base_url('dashboard/update_active'));
     }
 }
 
