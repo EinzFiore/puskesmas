@@ -82,13 +82,9 @@ class Dashboard extends CI_Controller
         $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
         $tgl = date('Y-m-d');
         $data['pendaftar'] = $this->Pasien->data_daftar($tgl)->row_array();
-        $this->db->select('*');
-        $this->db->from('tbl_jadwal_praktek_dokter');
-        $this->db->join('tbl_poli','tbl_poli.id_poli = tbl_jadwal_praktek_dokter.id_poli');
-        $this->db->join('tbl_dokter','tbl_dokter.kode_dokter = tbl_jadwal_praktek_dokter.kode_dokter');
-        $this->db->join('tbl_pendaftaran','tbl_pendaftaran.no_rawat = tbl_jadwal_praktek_dokter.id_jadwal','LEFT');
-        $this->db->where('tbl_jadwal_praktek_dokter.id_poli',$data['pendaftar']['id_poli']);
-        $data['jadwal_dokter'] = $this->db->get()->result_array();
+        $id_poli = $data['pendaftar']['id_poli'];
+        $data['jadwal_dokter'] = $this->Pasien->jadwal_dokter($id_poli)->result_array();
+        $data['waktu'] = $this->Pasien->jadwal_dokter($id_poli)->row_array();
         $data['hari'] = array (
             1 => 1,
             2,

@@ -63,12 +63,13 @@
 
                 <div class="row">
                     <div class="col-md-7 mb-4">
+                    <?php if($waktu['jam_mulai'] > date('H:s') AND $waktu['jam_selesai'] < date('H:s')) : ?>
                         <div class="hero-inner">
                             <div class="card">
                                 <form action="<?= base_url('dashboard/update_form') ?>" method="post">
                                     <div class="card-header">
                                         <h4>Data Pasien</h4>
-                                    </div>
+                                    </div> 
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label>Dokter</label>
@@ -85,6 +86,34 @@
                                 </form>
                             </div>
                         </div>
+
+                    <?php else : ?>
+                        <div class="hero-inner">
+                            <div class="alert alert-danger" role="alert">
+                               <h5>Mohon maaf, saat ini sudah melewati jam operational.</h5>
+                            </div>
+                            <div class="card">
+                                <form action="<?= base_url('dashboard/update_form') ?>" method="post">
+                                    <div class="card-header">
+                                        <h4>Data Pasien</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label>Dokter</label>
+                                            <select id="dokter" name="kd_dokter" class="form-control" disabled>
+                                                    <option value="" disabled="disabled" selected />Pilih</option>
+                                                    <?php foreach($jadwal_dokter as $jd) : ?>
+                                                    <option value="<?= $jd['kode_dokter'] ?>"><?= $jd['nama_dokter'] ?></option>
+
+                                                    <?php endforeach; ?>
+                                            </select>
+                                            <button type="submit" class="btn btn-primary mt-3">Pilih Dokter</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                     </div>
                     <div class="col-sm-5">
                         <img src="<?= base_url('assets/img/doctor.svg') ?>" width="100%">
