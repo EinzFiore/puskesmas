@@ -59,7 +59,7 @@
 
 
                 <!-- Kalau User Belum Pernah Daftar tampilkan form daftar -->
-                <?php if($pasien['is_active'] == 0 AND $pendaftaran['tanggal_daftar'] != $tgl ) : ?>
+                <?php if($pasien['is_active'] == 0 ) : ?>
                 <div class="col-md-5 mb-4">
                         <div class="hero-inner">
                             <div class="card">

@@ -18,7 +18,7 @@ class Dashboard extends CI_Controller
             $noRekammedisbaru = $this->noRekammedisOtomatis();
             $data = array(
             'button' => 'Tambah',
-            'action' => site_url('pasien/create_action'),
+            'action' => site_url('dashboard/create_action_form'),
             'no_rekamedis' => set_value('no_rekamedis', $noRekammedisbaru),
             'no_ktp' => set_value('no_ktp'),
             'no_bpjs' => set_value('no_bpjs'),
@@ -67,6 +67,7 @@ class Dashboard extends CI_Controller
         $this->db->select('*');
         $this->db->from('tbl_pasien');
         $this->db->join('tbl_user','tbl_user.id_users = tbl_pasien.user_id');
+        $this->db->where('tbl_pasien.user_id',$this->session->userdata('id_users'));
         $data['pasien'] = $this->db->get()->row_array();
         $data['judul'] = 'Daftar';
         $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
@@ -114,7 +115,6 @@ class Dashboard extends CI_Controller
         $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
         $data = array (
             'id_user_level' => 7,
-            ''
         );
         $this->db->where('email',$this->session->userdata('email'));
         $this->db->update('tbl_user',$data);
@@ -171,6 +171,31 @@ class Dashboard extends CI_Controller
             redirect(site_url('dashboard/daftar_lanjut'));
     }
 
+
+    public function create_action_form() 
+    {
+
+        $ttl = $this->input->post('tanggal_lahir',TRUE);
+            $data = array(
+            'no_ktp' => $this->input->post('no_ktp',TRUE),
+            'no_bpjs' => $this->input->post('no_bpjs',TRUE),
+            'no_rekamedis' => $this->input->post('no_rekamedis', TRUE),
+            'nama_pasien' => $this->input->post('nama_pasien',TRUE),
+            'jenis_kelamin' => $this->input->post('jenis_kelamin',TRUE),
+            'tempat_lahir' => $this->input->post('tempat_lahir',TRUE),
+            'tanggal_lahir' => date('d-m-Y', strtotime($ttl)),
+            'alamat' => $this->input->post('alamat',TRUE),
+            'user_id' => $this->session->userdata('id_users'),
+            'status_pasien' => $this->input->post('status_pasien',TRUE),
+        );
+            $this->Tbl_pasien_model->insert($data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success">Data Berhasil Masuk
+            </div>');  
+            redirect(site_url('dashboard/update_stat'));
+    }
+
+
+
     function update_form()
     {
         $data = array(
@@ -180,6 +205,20 @@ class Dashboard extends CI_Controller
         $this->db->update('tbl_pendaftaran',$data);
         
         redirect(base_url('dashboard/update_active'));
+    }
+
+    function signup()
+    {
+        $data = array(
+            'full_name' => $this->input->post('nama'),
+            'email' => $this->input->post('email'),
+            'password' => password_hash($this->input->post('password'),PASSWORD_DEFAULT),
+            'id_user_level' => 8,
+            'is_aktif' => "y",
+        );
+        $this->db->insert('tbl_user',$data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert">Akun berhasil dibuat, silahkan login.</div>');
+        redirect('auth');
     }
 }
 

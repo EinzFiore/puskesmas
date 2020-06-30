@@ -297,45 +297,23 @@
             <div class="row align-items-center regervation_content">
                 <div class="col-lg-7">
                     <div class="regervation_part_iner">
-                        <form>
-                            <h2>Make an Appointment</h2>
+                        <form action="<?= base_url('dashboard/signup'); ?>" method="post">
+                            <h2>Gratis Daftar !!</h2>
+                            <p class="text-light mb-3">Silahkan untuk mendaftar akun terlebih dahulu agar dapat mengakses layanan di website kami.</p>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <input type="email" class="form-control" id="inputEmail4" placeholder="Name">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <input type="password" class="form-control" id="inputPassword4"
-                                        placeholder="Email address">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <select class="form-control" id="Select">
-                                        <option value="1" selected>Select service</option>
-                                        <option value="2">Name of service</option>
-                                        <option value="3">Name of service</option>
-                                        <option value="4">Name of service</option>
-                                        <option value="5">Name of service</option>
-                                    </select>
-                                </div>
-                                <div class="form-group time_icon col-md-6">
-                                    <select class="form-control" id="Select2">
-                                        <option value="" selected>Time</option>
-                                        <option value="1">8 AM TO 10AM</option>
-                                        <option value="1">10 AM TO 12PM</option>
-                                        <option value="1">12PM TO 2PM</option>
-                                        <option value="1">2PM TO 4PM</option>
-                                        <option value="1">4PM TO 6PM</option>
-                                        <option value="1">6PM TO 8PM</option>
-                                        <option value="1">4PM TO 10PM</option>
-                                        <option value="1">10PM TO 12PM</option>
-                                    </select>
-                                </div>
                                 <div class="form-group col-md-12">
-                                    <textarea class="form-control" id="Textarea" rows="4"
-                                        placeholder="Your Note "></textarea>
+                                    <input type="text" name="nama" class="form-control" id="inputEmail4" placeholder="Nama Lengkap">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="password" name="password" class="form-control" id="inputPassword4"
+                                        placeholder="Password">
                                 </div>
                             </div>
                             <div class="regerv_btn">
-                                <a href="#" class="btn_2">Make an Appointment</a>
+                                <button type="submit" class="btn btn-light btn-lg">Daftar</button>
                             </div>
                         </form>
                     </div>

@@ -246,9 +246,9 @@ class Pasien extends CI_Controller
             'tempat_lahir' => $this->input->post('tempat_lahir',TRUE),
             'tanggal_lahir' => date('d-m-Y', strtotime($ttl)),
             'alamat' => $this->input->post('alamat',TRUE),
+            'user_id' => $this->session->userdata('id_users'),
             'status_pasien' => $this->input->post('status_pasien',TRUE),
         );
-
             $this->Tbl_pasien_model->insert($data);
             $this->session->set_flashdata('message', '<div class="alert alert-success">Data Berhasil Masuk
             </div>');  
