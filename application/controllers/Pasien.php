@@ -251,8 +251,12 @@ class Pasien extends CI_Controller
         );
             $this->Tbl_pasien_model->insert($data);
             $this->session->set_flashdata('message', '<div class="alert alert-success">Data Berhasil Masuk
-            </div>');  
-            redirect(site_url('dashboard/update_stat'));
+            </div>');
+            if($this->session->userdata('id_user_level') == 5){
+                redirect(base_url('pasien'));
+            } else {
+                redirect(site_url('dashboard/update_stat'));
+            }  
         }
     }
     
