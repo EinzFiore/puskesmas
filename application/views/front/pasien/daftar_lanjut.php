@@ -41,7 +41,8 @@
                                                     <td><?= $jd['nama_poli']; ?></td>
                                                     <td>
                                                        <?php  
-                                                            if ($day < $jd['day_week']==3 AND $jd['day_week'] == 3){
+                                                            date_default_timezone_set('Asia/Jakarta');
+                                                            if ($day < $jd['day_week']==3 AND $jd['day_week'] == 3 AND $jd['jam_mulai'] > date('H:s') AND $jd['jam_selesai'] < date('H:s')){
                                                                  echo '<span class="badge badge-success">Tersedia</span>';
                                                                 } elseif ($day == $hari['4'] AND $day < $jd['day_week']==6){
                                                                     echo '<span class="badge badge-success">Tersedia</span>';
