@@ -53,6 +53,17 @@ class Pasien extends CI_Model
         $this->db->where('tbl_jadwal_praktek_dokter.id_poli',$id_poli);
         return $this->db->get();
     }
+
+    function waktu($id_poli)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_jadwal_praktek_dokter');
+        $this->db->join('tbl_poli','tbl_poli.id_poli = tbl_jadwal_praktek_dokter.id_poli');
+        $this->db->join('tbl_dokter','tbl_dokter.kode_dokter = tbl_jadwal_praktek_dokter.kode_dokter');
+        $this->db->join('tbl_pendaftaran','tbl_pendaftaran.no_rawat = tbl_jadwal_praktek_dokter.id_jadwal','LEFT');
+        $this->db->where('tbl_jadwal_praktek_dokter.id_poli',$id_poli);
+        return $this->db->get();
+    }
 }
 
 

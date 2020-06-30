@@ -107,7 +107,6 @@
 
                                                     <?php endforeach; ?>
                                             </select>
-                                            <button type="submit" class="btn btn-primary mt-3">Pilih Dokter</button>
                                         </div>
                                     </div>
                                 </form>

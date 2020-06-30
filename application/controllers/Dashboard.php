@@ -84,7 +84,7 @@ class Dashboard extends CI_Controller
         $data['pendaftar'] = $this->Pasien->data_daftar($tgl)->row_array();
         $id_poli = $data['pendaftar']['id_poli'];
         $data['jadwal_dokter'] = $this->Pasien->jadwal_dokter($id_poli)->result_array();
-        $data['waktu'] = $this->Pasien->jadwal_dokter($id_poli)->row_array();
+        $data['waktu'] = $this->Pasien->waktu($id_poli)->row_array();
         $data['hari'] = array (
             1 => 1,
             2,
