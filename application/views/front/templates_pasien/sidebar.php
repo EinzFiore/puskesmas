@@ -107,7 +107,7 @@
               <li><a class="nav-link" href="<?= base_url('dashboard/daftar'); ?>"><i class="fas fa-file-alt"></i> <span>Daftar</span></a></li>
               <li><a class="nav-link" href="#"><i class="fas fa-question"></i> <span>Tanya Dokter</span></a></li>
               <li><a class="nav-link" href="#"><i class="fas fa-info"></i> <span>Hasil Poli</span></a></li>
-              <li><a class="nav-link" href="#"><i class="fas fa-history"></i> <span>Riwayat Berobat</span></a></li>
+              <li><a class="nav-link" href="<?= base_url('dashboard/tindakan') ?>"><i class="fas fa-history"></i> <span>Tindakan Berobat</span></a></li>
             </ul>
         </aside>
       </div>

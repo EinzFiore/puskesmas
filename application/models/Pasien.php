@@ -3,6 +3,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Pasien extends CI_Model
 {
+    function data_pasien()
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_pasien');
+        $this->db->join('tbl_user','tbl_user.id_users = tbl_pasien.user_id');
+        $this->db->where('tbl_pasien.user_id',$this->session->userdata('id_users'));
+        return $this->db->get();
+    }
+
     function data_pendaftar()
     {
         $this->db->select('*');
@@ -21,6 +30,16 @@ class Pasien extends CI_Model
         $this->db->from('tbl_pendaftaran');
         $this->db->where('user_id',$this->session->userdata('id_users'));
         $this->db->where('tanggal_daftar',$tgl);
+        return $this->db->get();
+    }
+
+    function riwayat_tindak($no_rawat){
+        $this->db->select('*');
+        $this->db->from('tbl_riwayat_tindakan');
+        $this->db->join('tbl_poli','tbl_poli.id_poli = tbl_riwayat_tindakan.id_poli');
+        $this->db->join('tbl_diagnosa_penyakit','tbl_diagnosa_penyakit.kode_diagnosa = tbl_riwayat_tindakan.kode_penyakit');
+        $this->db->join('tbl_tindakan','tbl_tindakan.kode_tindakan = tbl_riwayat_tindakan.kode_tindakan');
+        $this->db->where('no_rawat',$no_rawat);
         return $this->db->get();
     }
 }

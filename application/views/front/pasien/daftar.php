@@ -14,6 +14,11 @@
                 if($pasien['is_active'] == 1 AND $pendaftaran['tanggal_daftar'] == $tgl )  : ?>
 
                     <div class="col-md-10 mb-4">
+                    <?php if($tindak['no_rawat'] == $pendaftaran['no_rawat']) : ?>
+                        <div class="alert alert-success" role="alert">
+                            <strong>PEMBERITAHUAN</strong> : Tindakan berobat telah di publish, anda dapat melihat rincian tindakan di menu tindakan berobat.
+                        </div>
+                    <?php endif; ?>
                         <div class="hero-inner">
                             <div class="card">
                                 <table class="table table-striped">

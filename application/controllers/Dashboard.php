@@ -64,14 +64,12 @@ class Dashboard extends CI_Controller
         'no_bpjs' => set_value('no_bpjs')
     );
 
-        $this->db->select('*');
-        $this->db->from('tbl_pasien');
-        $this->db->join('tbl_user','tbl_user.id_users = tbl_pasien.user_id');
-        $this->db->where('tbl_pasien.user_id',$this->session->userdata('id_users'));
-        $data['pasien'] = $this->db->get()->row_array();
+        $data['pasien'] = $this->Pasien->data_pasien()->row_array();
         $data['judul'] = 'Daftar';
         $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
         $data['pendaftaran'] = $this->Pasien->data_pendaftar()->row_array();
+        $no_rawat = $data['pendaftaran']['no_rawat'];
+        $data['tindak'] = $this->Pasien->riwayat_tindak($no_rawat)->row_array();
         $this->load->view('front/templates_pasien/header', $data);
         $this->load->view('front/templates_pasien/sidebar', $data);
         $this->load->view('front/pasien/daftar', $data);
@@ -142,6 +140,20 @@ class Dashboard extends CI_Controller
         $noUrut++;
         $kodeBaru = sprintf("%06s", $noUrut);
         return $kodeBaru;
+    }
+
+    function tindakan()
+    {
+        $data['judul'] = 'Daftar';
+        $data['pasien'] = $this->Pasien->data_pasien()->row_array();
+        $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
+        $data['pendaftaran'] = $this->Pasien->data_pendaftar()->row_array();
+        $no_rawat = $data['pendaftaran']['no_rawat'];
+        $data['tindak'] = $this->Pasien->riwayat_tindak($no_rawat)->row_array();
+        $this->load->view('front/templates_pasien/header', $data);
+        $this->load->view('front/templates_pasien/sidebar', $data);
+        $this->load->view('front/pasien/tindakan', $data);
+        $this->load->view('front/templates_pasien/footer');
     }
 
     public function create_action() 
