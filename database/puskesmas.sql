@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: 31 Mei 2020 pada 13.02
--- Versi Server: 10.1.30-MariaDB
--- PHP Version: 5.6.33
+-- Host: localhost
+-- Generation Time: Jun 30, 2020 at 07:49 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.2.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_bidang`
+-- Table structure for table `tbl_bidang`
 --
 
 CREATE TABLE `tbl_bidang` (
@@ -34,7 +34,7 @@ CREATE TABLE `tbl_bidang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_bidang`
+-- Dumping data for table `tbl_bidang`
 --
 
 INSERT INTO `tbl_bidang` (`id_bidang`, `nama_bidang`) VALUES
@@ -46,7 +46,7 @@ INSERT INTO `tbl_bidang` (`id_bidang`, `nama_bidang`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_diagnosa_penyakit`
+-- Table structure for table `tbl_diagnosa_penyakit`
 --
 
 CREATE TABLE `tbl_diagnosa_penyakit` (
@@ -58,7 +58,7 @@ CREATE TABLE `tbl_diagnosa_penyakit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_diagnosa_penyakit`
+-- Dumping data for table `tbl_diagnosa_penyakit`
 --
 
 INSERT INTO `tbl_diagnosa_penyakit` (`kode_diagnosa`, `nama_penyakit`, `ciri_ciri_penyakit`, `keterangan`, `ciri_ciri_umum`) VALUES
@@ -68,7 +68,7 @@ INSERT INTO `tbl_diagnosa_penyakit` (`kode_diagnosa`, `nama_penyakit`, `ciri_cir
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_dokter`
+-- Table structure for table `tbl_dokter`
 --
 
 CREATE TABLE `tbl_dokter` (
@@ -83,7 +83,7 @@ CREATE TABLE `tbl_dokter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_dokter`
+-- Dumping data for table `tbl_dokter`
 --
 
 INSERT INTO `tbl_dokter` (`kode_dokter`, `nama_dokter`, `jenis_kelamin`, `nomor_induk_dokter`, `tempat_lahir`, `tgl_lahir`, `alamat`, `id_poli`) VALUES
@@ -99,7 +99,7 @@ INSERT INTO `tbl_dokter` (`kode_dokter`, `nama_dokter`, `jenis_kelamin`, `nomor_
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_hak_akses`
+-- Table structure for table `tbl_hak_akses`
 --
 
 CREATE TABLE `tbl_hak_akses` (
@@ -109,7 +109,7 @@ CREATE TABLE `tbl_hak_akses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_hak_akses`
+-- Dumping data for table `tbl_hak_akses`
 --
 
 INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`) VALUES
@@ -140,8 +140,6 @@ INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`) VALUES
 (53, 1, 30),
 (55, 1, 32),
 (58, 1, 35),
-(72, 2, 21),
-(74, 2, 23),
 (76, 1, 47),
 (81, 1, 50),
 (82, 3, 50),
@@ -170,12 +168,44 @@ INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`) VALUES
 (110, 4, 34),
 (111, 4, 50),
 (112, 1, 48),
-(113, 1, 31);
+(113, 1, 31),
+(114, 6, 2),
+(115, 6, 3),
+(121, 6, 15),
+(122, 6, 19),
+(123, 6, 20),
+(124, 6, 21),
+(125, 6, 22),
+(126, 6, 23),
+(127, 6, 27),
+(128, 6, 29),
+(129, 6, 31),
+(131, 6, 50),
+(134, 2, 2),
+(135, 2, 15),
+(136, 2, 19),
+(137, 2, 20),
+(138, 2, 21),
+(139, 2, 22),
+(140, 2, 23),
+(141, 2, 27),
+(142, 2, 29),
+(143, 2, 31),
+(144, 2, 50),
+(145, 7, 33),
+(146, 7, 34),
+(147, 7, 36),
+(148, 7, 50),
+(150, 8, 31),
+(151, 7, 31),
+(152, 7, 29),
+(153, 7, 23),
+(154, 7, 27);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_jabatan`
+-- Table structure for table `tbl_jabatan`
 --
 
 CREATE TABLE `tbl_jabatan` (
@@ -184,7 +214,7 @@ CREATE TABLE `tbl_jabatan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_jabatan`
+-- Dumping data for table `tbl_jabatan`
 --
 
 INSERT INTO `tbl_jabatan` (`id_jabatan`, `nama_jabatan`) VALUES
@@ -197,41 +227,38 @@ INSERT INTO `tbl_jabatan` (`id_jabatan`, `nama_jabatan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_jadwal_praktek_dokter`
+-- Table structure for table `tbl_jadwal_praktek_dokter`
 --
 
 CREATE TABLE `tbl_jadwal_praktek_dokter` (
   `id_jadwal` int(2) NOT NULL,
   `kode_dokter` varchar(4) NOT NULL,
   `hari` varchar(13) NOT NULL,
+  `day_week` int(1) NOT NULL,
   `jam_mulai` varchar(13) NOT NULL,
   `jam_selesai` varchar(13) NOT NULL,
   `id_poli` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_jadwal_praktek_dokter`
+-- Dumping data for table `tbl_jadwal_praktek_dokter`
 --
 
-INSERT INTO `tbl_jadwal_praktek_dokter` (`id_jadwal`, `kode_dokter`, `hari`, `jam_mulai`, `jam_selesai`, `id_poli`) VALUES
-(6, 'K-02', 'Rabu', '14.30', '16.30', 2),
-(7, 'S-23', 'Senin', '07.30', '11.30', 1),
-(8, 'S-24', 'Sabtu', '07.30', '11.00', 2),
-(9, 'K-12', 'Kamis', '08.00', '11.00', 1),
-(18, 'DU-1', 'Senin - Rabu', '09.00', '12.00', 2),
-(19, 'DU-2', 'Kamis & Sabtu', '09.00', '12.00', 2),
-(20, 'DG-1', 'Senin - Rabu', '09.00', '12.00', 1),
-(21, 'DG-2', 'Kamis - Sabtu', '08.00', '12.00', 1),
-(22, 'DK-1', 'Senin - Rabu', '08.00', '12.00', 4),
-(23, 'DK-2', 'Kamis & Sabtu', '08.00', '12.00', 4),
-(24, 'DU-2', 'Jumat', '08.00', '11.00', 2),
-(25, 'DA-2', 'Senin - Rabu', '08.00', '11.00', 5),
-(26, 'DA-1', 'Kamis - Sabtu', '08.00', '11.00', 5);
+INSERT INTO `tbl_jadwal_praktek_dokter` (`id_jadwal`, `kode_dokter`, `hari`, `day_week`, `jam_mulai`, `jam_selesai`, `id_poli`) VALUES
+(18, 'DU-1', 'Senin - Rabu', 3, '09.00', '12.00', 2),
+(19, 'DU-2', 'Kamis & Sabtu', 6, '09.00', '12.00', 2),
+(20, 'DG-1', 'Senin - Rabu', 3, '09.00', '12.00', 1),
+(21, 'DG-2', 'Kamis - Sabtu', 6, '08.00', '12.00', 1),
+(22, 'DK-1', 'Senin - Rabu', 3, '08.00', '12.00', 4),
+(23, 'DK-2', 'Kamis & Sabtu', 6, '08.00', '12.00', 4),
+(24, 'DU-2', 'Jumat', 5, '08.00', '11.00', 2),
+(25, 'DA-2', 'Senin - Rabu', 3, '08.00', '11.00', 5),
+(26, 'DA-1', 'Kamis - Sabtu', 6, '08.00', '11.00', 5);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_menu`
+-- Table structure for table `tbl_menu`
 --
 
 CREATE TABLE `tbl_menu` (
@@ -244,7 +271,7 @@ CREATE TABLE `tbl_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_menu`
+-- Dumping data for table `tbl_menu`
 --
 
 INSERT INTO `tbl_menu` (`id_menu`, `title`, `url`, `icon`, `is_main_menu`, `is_aktif`) VALUES
@@ -273,7 +300,7 @@ INSERT INTO `tbl_menu` (`id_menu`, `title`, `url`, `icon`, `is_main_menu`, `is_a
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_obat`
+-- Table structure for table `tbl_obat`
 --
 
 CREATE TABLE `tbl_obat` (
@@ -285,7 +312,7 @@ CREATE TABLE `tbl_obat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_obat`
+-- Dumping data for table `tbl_obat`
 --
 
 INSERT INTO `tbl_obat` (`kode_obat`, `nama_obat`, `jenis_obat`, `dosis_aturan_obat`, `satuan`) VALUES
@@ -295,7 +322,7 @@ INSERT INTO `tbl_obat` (`kode_obat`, `nama_obat`, `jenis_obat`, `dosis_aturan_ob
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_paramedis`
+-- Table structure for table `tbl_paramedis`
 --
 
 CREATE TABLE `tbl_paramedis` (
@@ -310,7 +337,7 @@ CREATE TABLE `tbl_paramedis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_paramedis`
+-- Dumping data for table `tbl_paramedis`
 --
 
 INSERT INTO `tbl_paramedis` (`kode_paramedis`, `nama_paramedis`, `jenis_kelamin`, `no_izin_paramedis`, `tempat_lahir`, `tanggal_lahir`, `alamat_tinggal`, `id_poli`) VALUES
@@ -326,11 +353,12 @@ INSERT INTO `tbl_paramedis` (`kode_paramedis`, `nama_paramedis`, `jenis_kelamin`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_pasien`
+-- Table structure for table `tbl_pasien`
 --
 
 CREATE TABLE `tbl_pasien` (
   `no_rekamedis` char(6) NOT NULL,
+  `user_id` int(2) NOT NULL,
   `no_ktp` varchar(16) NOT NULL,
   `no_bpjs` varchar(20) NOT NULL,
   `nama_pasien` varchar(30) NOT NULL,
@@ -338,23 +366,27 @@ CREATE TABLE `tbl_pasien` (
   `tempat_lahir` varchar(30) NOT NULL,
   `tanggal_lahir` varchar(10) NOT NULL,
   `alamat` text NOT NULL,
-  `status_pasien` varchar(10) NOT NULL
+  `status_pasien` varchar(10) NOT NULL,
+  `is_active` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_pasien`
+-- Dumping data for table `tbl_pasien`
 --
 
-INSERT INTO `tbl_pasien` (`no_rekamedis`, `no_ktp`, `no_bpjs`, `nama_pasien`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `alamat`, `status_pasien`) VALUES
-('000001', '3215251205000002', '-', 'Andre', 'L', 'Jakarta', '14-12-2012', 'Cikampek', 'Umum'),
-('000002', '3215251405000202', '-', 'Juan', 'L', 'Jakarta', '12-01-2000', 'Cikampek', 'Umum'),
-('000003', '321625140609098', '11223344556677', 'Icay', 'P', 'Cikampek', '01-11-1995', 'Cikampek', 'BPJS'),
-('000004', '3254241302000003', '-', 'Tony', 'L', 'Cikampek', '27-11-1999', 'Perum CIkampek Indah', 'Umum');
+INSERT INTO `tbl_pasien` (`no_rekamedis`, `user_id`, `no_ktp`, `no_bpjs`, `nama_pasien`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `alamat`, `status_pasien`, `is_active`) VALUES
+('000001', 0, '3215251205000002', '-', 'Andre', 'L', 'Jakarta', '14-12-2012', 'Cikampek', 'Umum', 0),
+('000002', 0, '3215251405000202', '-', 'Juan', 'L', 'Jakarta', '12-01-2000', 'Cikampek', 'Umum', 0),
+('000003', 0, '321625140609098', '11223344556677', 'Icay', 'P', 'Cikampek', '01-11-1995', 'Cikampek', 'BPJS', 0),
+('000004', 0, '3254241302000003', '-', 'Tony', 'L', 'Cikampek', '27-11-1999', 'Perum CIkampek Indah', 'Umum', 0),
+('000005', 0, '3254241302000103', '-', 'Anton', 'L', 'Cikampek', '26-10-2007', 'Cikampek', 'Umum', 0),
+('000006', 18, '1234567890123452', '-', 'Jun', 'L', 'Jakarta', '06-02-2000', 'Regensi', 'Umum', 1),
+('000007', 20, '1234567890348739', '-', 'Jojo', 'L', 'Desa Morioh', '06-02-1999', 'Jl. Morioh No.16', 'Umum', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_pegawai`
+-- Table structure for table `tbl_pegawai`
 --
 
 CREATE TABLE `tbl_pegawai` (
@@ -369,7 +401,7 @@ CREATE TABLE `tbl_pegawai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_pegawai`
+-- Dumping data for table `tbl_pegawai`
 --
 
 INSERT INTO `tbl_pegawai` (`id_pegawai`, `nama_pegawai`, `jenis_kelamin`, `npwp`, `tempat_lahir`, `tanggal_lahir`, `id_jabatan`, `id_bidang`) VALUES
@@ -382,13 +414,14 @@ INSERT INTO `tbl_pegawai` (`id_pegawai`, `nama_pegawai`, `jenis_kelamin`, `npwp`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_pendaftaran`
+-- Table structure for table `tbl_pendaftaran`
 --
 
 CREATE TABLE `tbl_pendaftaran` (
   `no_registrasi` varchar(4) NOT NULL,
   `no_rawat` varchar(18) NOT NULL,
   `no_rekamedis` varchar(6) NOT NULL,
+  `user_id` int(2) NOT NULL,
   `tanggal_daftar` date NOT NULL,
   `kode_dokter_penanggung_jawab` varchar(4) NOT NULL,
   `id_poli` varchar(2) NOT NULL,
@@ -400,22 +433,28 @@ CREATE TABLE `tbl_pendaftaran` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_pendaftaran`
+-- Dumping data for table `tbl_pendaftaran`
 --
 
-INSERT INTO `tbl_pendaftaran` (`no_registrasi`, `no_rawat`, `no_rekamedis`, `tanggal_daftar`, `kode_dokter_penanggung_jawab`, `id_poli`, `nama_penanggung_jawab`, `hubungan_dengan_penanggung_jawab`, `alamat_penanggung_jawab`, `status_pasien`, `no_bpjs`) VALUES
-('0001', '2020-04-21-0001', '000001', '2020-04-21', 'DU-2', '2', 'Siska', 'Saudara Kandung', 'Cikampek', 'Umum', '-'),
-('0001', '2020-04-22-0001', '000001', '2020-04-22', 'DA-1', '5', 'Alesia', 'Saudara Kandung', 'Kopo', 'Umum', '-'),
-('0001', '2020-04-24-0001', '000002', '2020-04-24', 'DU-2', '2', 'Martin', 'Saudara Kandung', 'Cikampek', 'Umum', '-'),
-('0002', '2020-04-24-0002', '000001', '2020-04-24', 'DU-2', '2', 'Ibu', 'Orang Tua', 'Cikampek', 'Umum', '-'),
-('0001', '2020-04-30-0001', '000002', '2020-04-30', 'DU-2', '2', 'January', 'Saudara Kandung', 'Kopo', 'Umum', '-'),
-('0001', '2020-05-02-0001', '000003', '2020-05-02', 'DU-2', '2', 'Santi', 'Saudara Kandung', 'Cikampek', 'BPJS', '11223344556677'),
-('0001', '2020-05-30-0001', '000004', '2020-05-30', 'DU-2', '2', 'Andi', 'Saudara Kandung', 'Perum Cikampek Indah', 'Umum', '-');
+INSERT INTO `tbl_pendaftaran` (`no_registrasi`, `no_rawat`, `no_rekamedis`, `user_id`, `tanggal_daftar`, `kode_dokter_penanggung_jawab`, `id_poli`, `nama_penanggung_jawab`, `hubungan_dengan_penanggung_jawab`, `alamat_penanggung_jawab`, `status_pasien`, `no_bpjs`) VALUES
+('0001', '2020-04-21-0001', '000001', 0, '2020-04-21', 'DU-2', '2', 'Siska', 'Saudara Kandung', 'Cikampek', 'Umum', '-'),
+('0001', '2020-04-22-0001', '000001', 0, '2020-04-22', 'DA-1', '5', 'Alesia', 'Saudara Kandung', 'Kopo', 'Umum', '-'),
+('0001', '2020-04-24-0001', '000002', 0, '2020-04-24', 'DU-2', '2', 'Martin', 'Saudara Kandung', 'Cikampek', 'Umum', '-'),
+('0002', '2020-04-24-0002', '000001', 0, '2020-04-24', 'DU-2', '2', 'Ibu', 'Orang Tua', 'Cikampek', 'Umum', '-'),
+('0001', '2020-04-30-0001', '000002', 0, '2020-04-30', 'DU-2', '2', 'January', 'Saudara Kandung', 'Kopo', 'Umum', '-'),
+('0001', '2020-05-02-0001', '000003', 0, '2020-05-02', 'DU-2', '2', 'Santi', 'Saudara Kandung', 'Cikampek', 'BPJS', '11223344556677'),
+('0001', '2020-05-30-0001', '000004', 0, '2020-05-30', 'DU-2', '2', 'Andi', 'Saudara Kandung', 'Perum Cikampek Indah', 'Umum', '-'),
+('0001', '2020-06-05-0001', '000004', 0, '2020-06-05', 'DU-2', '2', 'Ahmad', 'Saudara Kandung', 'Cikampek', 'Umum', '-'),
+('0001', '2020-06-06-0001', '000004', 0, '2020-06-06', 'DU-2', '2', 'Harry', 'Saudara Kandung', 'Cikampek', 'Umum', '-'),
+('0001', '2020-06-26-0001', '000005', 0, '2020-06-26', 'DU-2', '2', 'Ibu', 'Orang Tua', 'Cikampek', 'Umum', '-'),
+('0001', '2020-06-29-0001', '000006', 18, '2020-06-29', 'DA-2', '1', 'Jun Maeda', 'Saudara Kandung', 'Regensi', 'Umum', '-'),
+('0001', '2020-06-30-0001', '000006', 18, '2020-06-30', 'DA-2', '5', 'Stephen Chow', 'Saudara Kandung', 'Wuhan', 'Umum', '-'),
+('0002', '2020-06-30-0002', '000007', 20, '2020-06-30', 'DA-2', '5', 'Joseph Joestar', 'Orang Tua', 'Jl. Morioh', 'Umum', '-');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_pengadaan_obat`
+-- Table structure for table `tbl_pengadaan_obat`
 --
 
 CREATE TABLE `tbl_pengadaan_obat` (
@@ -434,7 +473,7 @@ CREATE TABLE `tbl_pengadaan_obat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_pengadaan_obat`
+-- Dumping data for table `tbl_pengadaan_obat`
 --
 
 INSERT INTO `tbl_pengadaan_obat` (`id_pengadaan`, `no_trans`, `supplier`, `kode_obat`, `nama_obat`, `jenis_obat`, `harga_beli`, `jumlah`, `satuan`, `keterangan`, `total`, `tgl_transaksi`) VALUES
@@ -442,7 +481,7 @@ INSERT INTO `tbl_pengadaan_obat` (`id_pengadaan`, `no_trans`, `supplier`, `kode_
 ('0001', 'B-200502-0001', 'Pharos Pharmaceutical', '002', 'Obat Batuk', 'Sirup', 7500, 100, 'Botol', 'Gratis', 750000, '02-05-2020');
 
 --
--- Trigger `tbl_pengadaan_obat`
+-- Triggers `tbl_pengadaan_obat`
 --
 DELIMITER $$
 CREATE TRIGGER `pengadaan_obat` AFTER INSERT ON `tbl_pengadaan_obat` FOR EACH ROW BEGIN
@@ -456,7 +495,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_pengeluaran_obat`
+-- Table structure for table `tbl_pengeluaran_obat`
 --
 
 CREATE TABLE `tbl_pengeluaran_obat` (
@@ -474,7 +513,7 @@ CREATE TABLE `tbl_pengeluaran_obat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_pengeluaran_obat`
+-- Dumping data for table `tbl_pengeluaran_obat`
 --
 
 INSERT INTO `tbl_pengeluaran_obat` (`id_pengeluaran`, `no_terima_obat`, `nama_pasien`, `kode_obat`, `nama_obat`, `jenis_obat`, `dosis_aturan_obat`, `jumlah`, `satuan`, `keterangan`, `tgl_serah_obat`) VALUES
@@ -482,7 +521,7 @@ INSERT INTO `tbl_pengeluaran_obat` (`id_pengeluaran`, `no_terima_obat`, `nama_pa
 ('0001', 'S-200422-0001', 'Andre', '001', 'Obat Flu', 'Tablet', '3 x 1', 100, 'Strip', 'Gratis', '22-04-2020');
 
 --
--- Trigger `tbl_pengeluaran_obat`
+-- Triggers `tbl_pengeluaran_obat`
 --
 DELIMITER $$
 CREATE TRIGGER `pengeluaran_obat` AFTER INSERT ON `tbl_pengeluaran_obat` FOR EACH ROW BEGIN
@@ -496,7 +535,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_poli`
+-- Table structure for table `tbl_poli`
 --
 
 CREATE TABLE `tbl_poli` (
@@ -506,7 +545,7 @@ CREATE TABLE `tbl_poli` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_poli`
+-- Dumping data for table `tbl_poli`
 --
 
 INSERT INTO `tbl_poli` (`id_poli`, `nama_poli`, `ruang_poli`) VALUES
@@ -517,7 +556,7 @@ INSERT INTO `tbl_poli` (`id_poli`, `nama_poli`, `ruang_poli`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_resep_obat`
+-- Table structure for table `tbl_resep_obat`
 --
 
 CREATE TABLE `tbl_resep_obat` (
@@ -532,7 +571,7 @@ CREATE TABLE `tbl_resep_obat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_resep_obat`
+-- Dumping data for table `tbl_resep_obat`
 --
 
 INSERT INTO `tbl_resep_obat` (`kode_resep`, `nama_obat`, `jenis_obat`, `dosis_aturan_obat`, `jumlah_obat`, `no_rawat`, `no_rekamedis`, `tanggal`) VALUES
@@ -543,7 +582,7 @@ INSERT INTO `tbl_resep_obat` (`kode_resep`, `nama_obat`, `jenis_obat`, `dosis_at
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_riwayat_tindakan`
+-- Table structure for table `tbl_riwayat_tindakan`
 --
 
 CREATE TABLE `tbl_riwayat_tindakan` (
@@ -559,7 +598,7 @@ CREATE TABLE `tbl_riwayat_tindakan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_riwayat_tindakan`
+-- Dumping data for table `tbl_riwayat_tindakan`
 --
 
 INSERT INTO `tbl_riwayat_tindakan` (`id_riwayat_tindakan`, `id_poli`, `kode_penyakit`, `kode_tindakan`, `no_rawat`, `hasil_periksa`, `nama_obat`, `no_rekamedis`, `tanggal`) VALUES
@@ -570,7 +609,7 @@ INSERT INTO `tbl_riwayat_tindakan` (`id_riwayat_tindakan`, `id_poli`, `kode_peny
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_rujukan`
+-- Table structure for table `tbl_rujukan`
 --
 
 CREATE TABLE `tbl_rujukan` (
@@ -586,7 +625,7 @@ CREATE TABLE `tbl_rujukan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_rujukan`
+-- Dumping data for table `tbl_rujukan`
 --
 
 INSERT INTO `tbl_rujukan` (`kode_rujukan`, `no_rujukan`, `nama_pasien`, `nama_penyakit`, `diagnosa`, `nama_rumah_sakit`, `poli_tujuan`, `tgl_rujukan`, `no_rawat`) VALUES
@@ -604,7 +643,7 @@ INSERT INTO `tbl_rujukan` (`kode_rujukan`, `no_rujukan`, `nama_pasien`, `nama_pe
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_setting`
+-- Table structure for table `tbl_setting`
 --
 
 CREATE TABLE `tbl_setting` (
@@ -614,7 +653,7 @@ CREATE TABLE `tbl_setting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_setting`
+-- Dumping data for table `tbl_setting`
 --
 
 INSERT INTO `tbl_setting` (`id_setting`, `nama_setting`, `value`) VALUES
@@ -623,7 +662,7 @@ INSERT INTO `tbl_setting` (`id_setting`, `nama_setting`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_stok_obat`
+-- Table structure for table `tbl_stok_obat`
 --
 
 CREATE TABLE `tbl_stok_obat` (
@@ -633,7 +672,7 @@ CREATE TABLE `tbl_stok_obat` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `tbl_stok_obat`
+-- Dumping data for table `tbl_stok_obat`
 --
 
 INSERT INTO `tbl_stok_obat` (`kode_obat`, `jumlah`, `satuan`) VALUES
@@ -643,7 +682,7 @@ INSERT INTO `tbl_stok_obat` (`kode_obat`, `jumlah`, `satuan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_supplier`
+-- Table structure for table `tbl_supplier`
 --
 
 CREATE TABLE `tbl_supplier` (
@@ -654,7 +693,7 @@ CREATE TABLE `tbl_supplier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_supplier`
+-- Dumping data for table `tbl_supplier`
 --
 
 INSERT INTO `tbl_supplier` (`kode_supplier`, `nama_supplier`, `alamat`, `no_telpon`) VALUES
@@ -663,7 +702,7 @@ INSERT INTO `tbl_supplier` (`kode_supplier`, `nama_supplier`, `alamat`, `no_telp
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_tindakan`
+-- Table structure for table `tbl_tindakan`
 --
 
 CREATE TABLE `tbl_tindakan` (
@@ -674,7 +713,7 @@ CREATE TABLE `tbl_tindakan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_tindakan`
+-- Dumping data for table `tbl_tindakan`
 --
 
 INSERT INTO `tbl_tindakan` (`kode_tindakan`, `nama_tindakan`, `tindakan_oleh`, `id_poliklinik`) VALUES
@@ -688,7 +727,7 @@ INSERT INTO `tbl_tindakan` (`kode_tindakan`, `nama_tindakan`, `tindakan_oleh`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_user`
+-- Table structure for table `tbl_user`
 --
 
 CREATE TABLE `tbl_user` (
@@ -702,19 +741,21 @@ CREATE TABLE `tbl_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_user`
+-- Dumping data for table `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`id_users`, `full_name`, `email`, `password`, `images`, `id_user_level`, `is_aktif`) VALUES
 (13, 'Administrator', 'administratorpuskes@gmail.com', '$2y$04$wmaWOGLkbcFDosht.VkYVejHhTKQqr04.97VsF0EvCGGrmnWD3iZS', 'admin11.png', 1, 'y'),
 (14, 'Apotek', 'apotek@gmail.com', '$2y$04$dMGLRL0NoywETusrGsaNo.TfHM90UewDVWUMbxoVscfGN9URGpnNK', 'apotek1.png', 4, 'y'),
 (15, 'Pendaftaran', 'pendaftaran@gmail.com', '$2y$04$WDhZhQq7C3ok2BSc1LtMputAcc7k.DFxx23AEdhkxW60NgHi17NHa', 'regis1.png', 5, 'y'),
-(17, 'Admin 2', 'admin.puskesmas@gmail.com', '$2y$04$VK3DNN9k3.HY6r08A0gRsOtQNC/yzunF1X8yRCYTBB9CR2MIaArrW', 'martin_garrix_is_legend_BtDE98_FO3v.jpg', 1, 'y');
+(17, 'Admin 2', 'admin.puskesmas@gmail.com', '$2y$04$VK3DNN9k3.HY6r08A0gRsOtQNC/yzunF1X8yRCYTBB9CR2MIaArrW', 'martin_garrix_is_legend_BtDE98_FO3v.jpg', 2, 'y'),
+(18, 'Ahmad Junaedi', 'ahmadjunaedi1412@gmail.com', '$2y$04$6QQJT7LP9zDpofOkCIi62O0HVvxLEaW3TXmY.fwV0iW10NQ91VY46', 'IMG_1592755245.jpg', 7, 'y'),
+(20, 'Jonathan Joestar', 'jojo@gmail.com', '$2y$10$irfO7K37cy541m6aukU6hepAVaoyVJHkbVuoTwfYRYSn3HmGSdX8i', '', 7, 'y');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_user_level`
+-- Table structure for table `tbl_user_level`
 --
 
 CREATE TABLE `tbl_user_level` (
@@ -723,13 +764,16 @@ CREATE TABLE `tbl_user_level` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_user_level`
+-- Dumping data for table `tbl_user_level`
 --
 
 INSERT INTO `tbl_user_level` (`id_user_level`, `nama_level`) VALUES
-(1, 'Admin'),
+(1, 'Superadmin'),
+(2, 'Admin'),
 (4, 'Apotek'),
-(5, 'Pendaftaran');
+(5, 'Pendaftaran'),
+(7, 'Pasien'),
+(8, 'User');
 
 --
 -- Indexes for dumped tables
@@ -896,7 +940,7 @@ ALTER TABLE `tbl_bidang`
 -- AUTO_INCREMENT for table `tbl_hak_akses`
 --
 ALTER TABLE `tbl_hak_akses`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 
 --
 -- AUTO_INCREMENT for table `tbl_jabatan`
@@ -944,20 +988,20 @@ ALTER TABLE `tbl_setting`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_users` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_users` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tbl_user_level`
 --
 ALTER TABLE `tbl_user_level`
-  MODIFY `id_user_level` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user_level` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `tbl_pegawai`
+-- Constraints for table `tbl_pegawai`
 --
 ALTER TABLE `tbl_pegawai`
   ADD CONSTRAINT `tbl_pegawai_ibfk_1` FOREIGN KEY (`id_jabatan`) REFERENCES `tbl_jabatan` (`id_jabatan`),
