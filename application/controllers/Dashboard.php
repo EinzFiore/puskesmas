@@ -345,7 +345,28 @@ class Dashboard extends CI_Controller
         $this->load->view('front/pasien/list_pasien', $data);
         $this->load->view('front/templates_pasien/footer');
     }
+    
+    function riwayat()
+    {
 
+        $data['judul'] = "Data Pasien";
+        $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
+        $data['riwayatAll'] = $this->Pasien->riwayat_tindak_all()->result_array();
+        $this->load->view('front/templates_pasien/header', $data);
+        $this->load->view('front/templates_pasien/sidebar', $data);
+        $this->load->view('front/pasien/riwayat_berobat', $data);
+        $this->load->view('front/templates_pasien/footer');
+    }
+
+    function ubah_konfirmasi($noreka)
+    {
+        $data = array (
+            'is_active' => 0,
+        );
+        $this->db->where('no_rekamedis',$noreka);
+        $this->db->update('tbl_pasien',$data);
+        redirect('dashboard/riwayat');
+    }
 }
 
 

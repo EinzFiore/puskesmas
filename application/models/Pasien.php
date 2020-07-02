@@ -57,6 +57,17 @@ class Pasien extends CI_Model
         return $this->db->get();
     }
 
+    function riwayat_tindak_all(){
+        $this->db->select('tbl_pasien.nama_pasien,tbl_poli.nama_poli,tbl_diagnosa_penyakit.nama_penyakit,tbl_riwayat_tindakan.hasil_periksa,tbl_riwayat_tindakan.tanggal,tbl_pasien.jenis_kelamin,tbl_pasien.is_active,tbl_tindakan.nama_tindakan,tbl_riwayat_tindakan.no_rekamedis');
+        $this->db->from('tbl_riwayat_tindakan');
+        $this->db->join('tbl_poli','tbl_poli.id_poli = tbl_riwayat_tindakan.id_poli');
+        $this->db->join('tbl_diagnosa_penyakit','tbl_diagnosa_penyakit.kode_diagnosa = tbl_riwayat_tindakan.kode_penyakit');
+        $this->db->join('tbl_tindakan','tbl_tindakan.kode_tindakan = tbl_riwayat_tindakan.kode_tindakan');
+        $this->db->join('tbl_pasien','tbl_pasien.no_rekamedis = tbl_riwayat_tindakan.no_rekamedis');
+        $this->db->where('tbl_riwayat_tindakan.user_id',$this->session->userdata('id_users'));
+        return $this->db->get();
+    }
+
     function jadwal_dokter($id_poli)
     {
         $this->db->select('*');
