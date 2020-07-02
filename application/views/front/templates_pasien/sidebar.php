@@ -40,6 +40,7 @@
               <li class="menu-header">Dashboard</li>
               <li><a class="nav-link" href="<?= base_url('dashboard') ?>"><i class="fas fa-home"></i> <span>Home</span></a></li>
               <li><a class="nav-link" href="<?= base_url('dashboard/daftar'); ?>"><i class="fas fa-file-alt"></i> <span>Daftar</span></a></li>
+              <li><a class="nav-link" href="<?= base_url('dashboard/data_pasien') ?>"><i class="fas fa-user"></i> <span>Data Pasien</span></a></li>
               <li><a class="nav-link" href="<?= base_url('dashboard/tindakan') ?>"><i class="fas fa-history"></i> <span>Tindakan Berobat</span></a></li>
               <li><a class="nav-link" href="<?= base_url('dashboard/riwayat') ?>"><i class="fas fa-history"></i> <span>Riwayat Berobat</span></a></li>
             </ul>

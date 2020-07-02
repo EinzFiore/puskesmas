@@ -11,7 +11,7 @@
             <div class="row">
                 <?php 
                 $tgl = date('Y-m-d');
-                if($pasien['is_active'] == 1 AND $pendaftaran['tanggal_daftar'] == $tgl AND $tindak['no_rawat'] == $pendaftaran['no_rawat'] )  : ?>
+                if($pasienDaftar['is_active'] == 1 AND $pendaftaran['tanggal_daftar'] == $tgl AND $tindak['no_rawat'] == $pendaftaran['no_rawat'] )  : ?>
                     <div class="col-md-9 mb-4">
                         <div class="hero-inner">
                             <div class="card">
@@ -51,6 +51,18 @@
                                 </div>
                             </div>
                         </div>
+                        <?php else : ?>
+                            <div class="col-md-12 mb-4">
+                                    <div class="card-body">
+                                        <div class="alert alert-warning" role="alert">
+                                            <h4 class="alert-heading">Halo, <?= $user['full_name']; ?></h4>
+                                            <p>Saat ini belum ada hasil tindakan berobat dari dokter, kamu dapat melihat riwayat tindakan di <a class="btn btn-primary" href="<?= base_url('dashboard/riwayat_berobat') ?>">Riwayat Berobat</a> jika kamu sebelumnya pernah menerima tindakan berobat, terimakasih. </p>
+                                            <hr>
+                                            <p class="mb-0">Puskesmas 2020.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                 <?php endif; ?>
             </div>
         </section>

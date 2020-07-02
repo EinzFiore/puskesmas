@@ -11,8 +11,7 @@
             <div class="row">
                 <?php 
                 $tgl = date('Y-m-d');
-                if($pasien['is_active'] == 1 AND $pendaftaran['tanggal_daftar'] == $tgl )  : ?>
-
+                if($pasienDaftar['is_active'] == 1 AND $pendaftaran['tanggal_daftar'] == $tgl )  : ?>
                     <div class="col-md-10 mb-4">
                     <?php if($tindak['no_rawat'] == $pendaftaran['no_rawat']) : ?>
                         <div class="alert alert-success" role="alert">
@@ -60,11 +59,8 @@
                             </div>
                         </div>
                 
-                <?php endif; ?>
-
-
                 <!-- Kalau User Belum Pernah Daftar tampilkan form daftar -->
-                <?php if($pasien['is_active'] == 0 ) : ?>
+                <?php elseif($pasien['is_active'] == 0  AND $pasien['user_id'] == $this->session->userdata('id_users')) : ?>
                 <div class="col-md-5 mb-4">
                         <div class="hero-inner">
                             <div class="card">
@@ -151,6 +147,18 @@
                         </div>
                     </div>
                 </div>
+                <?php else : ?>
+                            <div class="col-md-12 mb-4">
+                                    <div class="card-body">
+                                        <div class="alert alert-primary" role="alert">
+                                            <h4 class="alert-heading">Halo, <?= $user['full_name']; ?></h4>
+                                            <p>Saat ini kamu belum bisa mendaftar, dikarenakan kamu belum mengisi form data pasien,atau kamu belum mengkonfirmasi tindakan berobat sebelumnya, untuk melakukan pendaftaran pasien kamu bisa menuju halaman <a class="btn btn-info" href="<?= base_url('dashboard/data_pasien'); ?>">Data Pasien</a> atau untuk mengkonfirmasi tindakan berobat bisa dilakukan pada halaman <a class="btn btn-info" href="<?= base_url('dashboard/riwayat_berobat') ?>">Riwayat Berobat</a> Terimakasih </p>
+                                            <hr>
+                                            <p class="mb-0">Puskesmas 2020.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                 <?php endif; ?>
                 <!-- END Form Daftar -->
 

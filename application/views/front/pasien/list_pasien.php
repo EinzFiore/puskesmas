@@ -9,41 +9,54 @@
             <p class="section-lead">Components that can be used to make something bigger than the header.</p>
 
             <div class="row">
-                <div class="col-12 mb-4">
-                    <?php if($user['id_user_level'] == 8) : ?>
-                    <div class="alert alert-warning" role="alert">
-                        <h5>Silahkan untuk melengkapi data terlebih dahulu, agar dapat mendaftar sebagai Pasien. klik button dibawah
-                        untuk mendaftar </h5><br> <button class="btn btn-success mb-4" data-toggle="modal" data-target="#formDaftar">Isi Form</button>
-                    </div>
-                    <?php endif; ?>
-
-                    <div class="hero bg-primary text-white">
+                    <div class="col-md-12">
                         <div class="hero-inner">
-                            <h2>Welcome Back, <?= $user['full_name'] ?>!</h2>
-                            <p class="lead">This page is a place to manage posts, categories and more.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-5">
-                    <div class="card" style="width: 36rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Hai..</h5>
-                            <p class="card-text">Untuk proses pendaftaran pasien lanjutan, kamu dapat menuju menu daftar disamping, atau klik pada button dibawah ini.</p>
-                            <a href="<?= base_url('dashboard/daftar'); ?>" class="btn btn-primary">Daftar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-7">
-                        <img src="<?= base_url('assets/img/welcome.svg') ?>" class="img-fluid ml-4" width="80%" >
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
+                            <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#tambahPasien">Tambah Pasien</button>
+                            <div class="card">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No. Rekamedis</th>
+                                            <th scope="col">Nama Pasien</th>
+                                            <th scope="col">Status Pasien</th>
+                                            <th scope="col">Tanggal Daftar</th>
+                                            <th scope="col">Poli</th>
+                                            <th scope="col">Nama Penanggung Jawab</th>
+                                            <th scope="col">Hubungan Penanggung Jawab</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <?php foreach($pasienUser as $pu) :  ?>
+                                    <tbody>
+                                        <tr>
+                                            <td><?= $pu['no_rekamedis']; ?></td>
+                                            <td><?= $pu['nama_pasien']; ?></td>
+                                            <td><?= $pu['status_pasien']; ?></td>
+                                            <td><?= $pu['tanggal_daftar']; ?></td>
+                                            <td><?= $pu['nama_poli']; ?></td>
+                                            <td><?= $pu['nama_penanggung_jawab']; ?></td>
+                                            <td><?= $pu['hubungan_dengan_penanggung_jawab']; ?></td>
+                                            <td>
+                                            <?php 
+                                                if($pu['is_active'] == 1){
+                                                    echo '<span class="badge badge-primary">Telah Diperiksa</span>';
+                                                } else echo '<span class="badge badge-warning">Belum Diperiksa</span>';
+                                            ?>
+                                            </td>
 
-<?php if($user['id_user_level'] == 8) : ?>
-        <!-- Modal -->
-                <div class="modal fade" id="formDaftar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        </tr>
+                                    </tbody>
+                                    <?php endforeach; ?>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </section>
+    </div>
+    <?php foreach($pasienUser as $pu) :  ?>
+    <!-- Modal -->
+    <div class="modal fade" id="tambahPasien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -56,7 +69,7 @@
                         <form action="<?php echo $action; ?>" method="post" id="form1" name="form1">
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Nomor KTP</label>
-                                <input type="text" class="form-control" name="no_ktp" id="no_ktp" placeholder="No KTP / ID" value="<?php echo $no_ktp; ?>" />
+                                <input type="text" class="form-control" name="no_ktp" id="no_ktp" placeholder="No KTP / ID" value="<?php echo $pu['no_ktp']; ?>" readonly />
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Nomor BPJS</label>
@@ -102,5 +115,6 @@
                         </form>
                         </div>
                     </div>
-                    </div>
-<?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+            

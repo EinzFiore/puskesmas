@@ -64,7 +64,9 @@ class Dashboard extends CI_Controller
         'no_bpjs' => set_value('no_bpjs')
     );
 
+        $data['pasienDaftar'] = $this->Pasien->data_daftar_pasien()->row_array();
         $data['pasien'] = $this->Pasien->data_pasien()->row_array();
+
         $data['judul'] = 'Daftar';
         $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
         $data['pendaftaran'] = $this->Pasien->data_pendaftar()->row_array();
@@ -142,6 +144,7 @@ class Dashboard extends CI_Controller
     {
         $data['judul'] = 'Daftar';
         $data['pasien'] = $this->Pasien->data_pasien()->row_array();
+        $data['pasienDaftar'] = $this->Pasien->data_daftar_pasien()->row_array();
         $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
         $data['pendaftaran'] = $this->Pasien->data_pendaftar()->row_array();
         $no_rawat = $data['pendaftaran']['no_rawat'];
@@ -315,6 +318,32 @@ class Dashboard extends CI_Controller
                 }
             }
         }
+    }
+
+    function data_pasien()
+    {
+        $noRekammedisbaru = $this->noRekammedisOtomatis();
+        $data = array(
+        'button' => 'Tambah',
+        'action' => site_url('dashboard/create_action_form'),
+        'no_rekamedis' => set_value('no_rekamedis', $noRekammedisbaru),
+        'no_ktp' => set_value('no_ktp'),
+        'no_bpjs' => set_value('no_bpjs'),
+        'nama_pasien' => set_value('nama_pasien'),
+        'jenis_kelamin' => set_value('jenis_kelamin'),
+        'tempat_lahir' => set_value('tempat_lahir'),
+        'tanggal_lahir' => set_value('tanggal_lahir'),
+        'alamat' => set_value('alamat'),
+        'status_pasien' => set_value('status_pasien'),
+        );
+
+        $data['judul'] = "Data Pasien";
+        $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
+        $data['pasienUser'] = $this->Pasien->list_pasien()->result_array();
+        $this->load->view('front/templates_pasien/header', $data);
+        $this->load->view('front/templates_pasien/sidebar', $data);
+        $this->load->view('front/pasien/list_pasien', $data);
+        $this->load->view('front/templates_pasien/footer');
     }
 
 }
