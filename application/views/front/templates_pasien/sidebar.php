@@ -17,7 +17,7 @@
             <div class="d-sm-none d-lg-inline-block">Hi, <?= $user['full_name']; ?></div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <div class="dropdown-title">Logged in 5 min ago</div>
-              <a href="features-profile.html" class="dropdown-item has-icon">
+              <a href="<?= base_url('dashboard/profile'); ?>" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
               </a>
               <div class="dropdown-divider"></div>
@@ -31,16 +31,17 @@
       <div class="main-sidebar">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="index.html">Stisla</a>
+            <a href="<?= base_url('dashboard') ?>">Stisla</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">St</a>
+            <a href="<?= base_url('dashboard') ?>">St</a>
           </div>
           <ul class="sidebar-menu">
               <li class="menu-header">Dashboard</li>
               <li><a class="nav-link" href="<?= base_url('dashboard') ?>"><i class="fas fa-home"></i> <span>Home</span></a></li>
               <li><a class="nav-link" href="<?= base_url('dashboard/daftar'); ?>"><i class="fas fa-file-alt"></i> <span>Daftar</span></a></li>
               <li><a class="nav-link" href="<?= base_url('dashboard/tindakan') ?>"><i class="fas fa-history"></i> <span>Tindakan Berobat</span></a></li>
+              <li><a class="nav-link" href="<?= base_url('dashboard/riwayat') ?>"><i class="fas fa-history"></i> <span>Riwayat Berobat</span></a></li>
             </ul>
         </aside>
       </div>

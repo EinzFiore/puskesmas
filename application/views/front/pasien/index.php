@@ -17,13 +17,24 @@
                     </div>
                     <?php endif; ?>
 
-
                     <div class="hero bg-primary text-white">
                         <div class="hero-inner">
                             <h2>Welcome Back, <?= $user['full_name'] ?>!</h2>
                             <p class="lead">This page is a place to manage posts, categories and more.</p>
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="card" style="width: 36rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Hai..</h5>
+                            <p class="card-text">Untuk proses pendaftaran pasien lanjutan, kamu dapat menuju menu daftar disamping, atau klik pada button dibawah ini.</p>
+                            <a href="<?= base_url('dashboard/daftar'); ?>" class="btn btn-primary">Daftar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                        <img src="<?= base_url('assets/img/welcome.svg') ?>" class="img-fluid ml-4" width="80%" >
                 </div>
             </div>
         </div>

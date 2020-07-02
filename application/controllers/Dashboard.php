@@ -228,6 +228,95 @@ class Dashboard extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-success alert">Akun berhasil dibuat, silahkan login.</div>');
         redirect('auth');
     }
+
+    function profile()
+    {
+        $data['judul'] = 'Profile';
+        $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
+        $this->load->view('front/templates_pasien/header', $data);
+        $this->load->view('front/templates_pasien/sidebar', $data);
+        $this->load->view('front/pasien/profile', $data);
+        $this->load->view('front/templates_pasien/footer');
+    }
+
+    function upload_foto(){
+        $config['upload_path']          = './assets/foto_profil';
+        $config['allowed_types']        = 'gif|jpg|png';
+        //$config['max_size']             = 100;
+        //$config['max_width']            = 1024;
+        //$config['max_height']           = 768;
+        $this->load->library('upload', $config);
+        $this->upload->do_upload('images');
+        return $this->upload->data();
+    }
+
+    function ubah_profile()
+    {
+        $data['judul'] = 'Profile';
+        $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
+        $this->load->view('front/templates_pasien/header', $data);
+        $this->load->view('front/templates_pasien/sidebar', $data);
+        $this->load->view('front/pasien/profile', $data);
+        $this->load->view('front/templates_pasien/footer');
+    }
+
+    public function update_action() 
+    {
+        $foto = $this->upload_foto();
+            if($foto['file_name']==''){
+                $data = array(
+                'full_name'     => $this->input->post('full_name',TRUE),
+                // 'password' => password_hash($this->input->post('password'),PASSWORD_DEFAULT)
+            );
+        } else {
+            $data = array(
+                'full_name'     => $this->input->post('full_name',TRUE),
+                // 'password'      => password_hash($this->input->post('password'),PASSWORD_DEFAULT),
+                'images'        => $foto['file_name'],
+                );
+                
+                // ubah foto profil yang aktif
+                $this->session->set_userdata('images',$foto['file_name']);
+            }
+            $this->db->where('email', $this->session->userdata('email'));
+            $this->db->update('tbl_user',$data);
+            $this->session->set_flashdata('message', '<div class="alert alert-info">Data Berhasil Diupdate
+            </div>');  
+            redirect(site_url('dashboard/ubah_profile'));
+    }
+
+    function ubah_password()
+    {
+        $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
+        $data['judul'] = 'Ubah Profile';
+       
+        $this->form_validation->set_rules('password_lama', 'Password Lama', 'trim|required');
+        $this->form_validation->set_rules('password_baru', 'Password Baru', 'trim|required|min_length[4]');
+        if ($this->form_validation->run() == FALSE) {
+            redirect('dashboard/ubah_profile');            
+        } else {
+            $current_password   = $this->input->post('password_lama');
+            $new_password       = $this->input->post('password_baru');
+            if (!password_verify($current_password, $data['user']['password'])) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password lama yang anda masukan salah !!</div>');
+                redirect(base_url('dashboard/ubah_profile'));
+            } else {
+                if ($current_password == $new_password) {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password baru tidak boleh sama dengan password lama !!</div>');
+                    redirect(base_url('dashboard/ubah_profile'));
+                } else {
+                    // Password OK
+                    $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+                    $this->db->set('password', $password_hash);
+                    $this->db->where('email', $this->session->userdata('email'));
+                    $this->db->update('tbl_user');
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password berhasil diubah !!</div>');
+                    redirect(base_url('dashboard/ubah_profile'));
+                }
+            }
+        }
+    }
+
 }
 
 
