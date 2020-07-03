@@ -71,8 +71,7 @@ class Dataobat extends CI_Controller
 		'jenis_obat' => $this->input->post('jenis_obat',TRUE),
 		'dosis_aturan_obat' => $this->input->post('dosis_aturan_obat',TRUE),
         'satuan' => $this->input->post('satuan',TRUE),
-
-	    );
+        );
 
             $this->Tbl_obat_model->insert($data);
             $this->session->set_flashdata('message', '<div class="alert alert-success">Data Berhasil Masuk

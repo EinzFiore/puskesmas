@@ -81,7 +81,13 @@ class Stokobat extends CI_Controller
 
     $no_rawat = substr($this->uri->uri_string(3), 27);
      
-      $sql_data_resep = "SELECT o.nama_obat, so.kode_obat, so.jumlah, so.satuan FROM tbl_obat as o, tbl_stok_obat as so WHERE o.kode_obat = so.kode_obat";
+    $sql_data_resep = "SELECT o.nama_obat, so.kode_obat, so.jumlah, so.satuan FROM tbl_obat as o, tbl_stok_obat as so WHERE o.kode_obat = so.kode_obat";
+
+    $this->db->select('tbl_obat.nama_obat,tbl_stok_obat.kode_obat, tbl_stok_obat.jumlah,tbl_stok_obat.satuan');
+    $this->db->from('tbl_obat');
+    $this->db->join('tbl_stok_obat','tbl_stok_obat.kode_obat = tbl_obat.kode_obat');
+    $this->db->where('tbl_obat.kode_obat = tbl_stok_obat.kode_obat');
+    $dataResep = $this->db->get()->result();
 
     $sql_rekamedis    = "SELECT tr.*,pd.no_rawat,pd.tanggal_daftar 
                         FROM tbl_riwayat_tindakan as tr, tbl_pendaftaran as pd
@@ -119,17 +125,17 @@ class Stokobat extends CI_Controller
         $pdf->Cell(70,7, '',0,0,'C');
         $pdf->Cell(40, 7, 'Kode Obat  ', 1, 0, 'C');
         $pdf->Cell(65, 7, 'Nama Obat', 1, 0, 'C');
-        $pdf->Cell(40, 7, 'Jumlah ', 1, 1, 'C');
-        
-        
+        $pdf->Cell(65, 7, 'Jumlah', 1, 0, 'C');
+        $pdf->Cell(40, 7, 'Satuan ', 1, 1, 'C');
 
 
-        $resep = $this->db->query($sql_data_resep)->result();
+        $resep = $dataResep;
         foreach ($resep as $r) {
         $pdf->Cell(70,7, '',0,0,'C');
         $pdf->Cell(40, 7, $r->kode_obat, 1, 0, 'C');
         $pdf->Cell(65, 7, $r->nama_obat, 1, 0, 'C');
-        $pdf->Cell(40, 7, $r->jumlah, 1, 1, 'C');
+        $pdf->Cell(65, 7, $r->jumlah, 1, 0, 'C');
+        $pdf->Cell(40, 7, $r->satuan, 1, 1, 'C');
         }
 
 

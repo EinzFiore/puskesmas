@@ -36,19 +36,30 @@
                                                     <th scope="row"><?= $no++; ?></th>
                                                     <td><?= $jd['nama_dokter'] ?></td>
                                                     <td><?= $jd['hari'] ?></td>
-                                                    <td><?= $jd['jam_mulai']; ?></td>
-                                                    <td><?= $jd['jam_selesai']; ?></td>
+                                                    <td>0<?= $jd['jam_mulai']; ?> : 00</td>
+                                                    <td><?= $jd['jam_selesai']; ?>: 00</td>
                                                     <td><?= $jd['nama_poli']; ?></td>
                                                     <td>
                                                        <?php  
                                                             date_default_timezone_set('Asia/Jakarta');
-                                                            if ($day < $jd['day_week']==3 AND $jd['day_week'] == 3 AND $jd['jam_mulai'] > date('H:s') AND $jd['jam_selesai'] < date('H:s')){
-                                                                 echo '<span class="badge badge-success">Tersedia</span>';
-                                                                } elseif ($day == $hari['4'] AND $day < $jd['day_week']==6 AND $jd['jam_mulai'] > date('H:s') AND $jd['jam_selesai'] < date('H:s')){
+                                                            $hari1 = array_slice($hari,0,3);
+                                                            $hari2 = array_slice($hari,3,-1);
+
+                                                            if($jd['day_week'] == 3){
+                                                                if ($day == $hari[1] OR $day == $hari[2] OR $day == $hari[3] ){
+                                                                echo '<span class="badge badge-success">Tersedia</span>';
+                                                                } else echo '<span class="badge badge-warning">Tidak Tersedia</span>';
+                                                            } 
+                                                            elseif($jd['day_week'] == 6){
+                                                                if($day == $hari[4] OR $day == $hari[5] OR $day == $hari[6]){
                                                                     echo '<span class="badge badge-success">Tersedia</span>';
-                                                                }
-                                                            else 
-                                                                echo '<span class="badge badge-warning">Tidak Tersedia</span>';
+                                                                } else echo '<span class="badge badge-warning">Tidak Tersedia</span>';
+                                                            }
+                                                            elseif($jd['day_week'] == 5){
+                                                                if($day == $hari[4] OR $day == $hari[5] OR $day == $hari[6]){
+                                                                    echo '<span class="badge badge-success">Tersedia</span>';
+                                                                } else echo '<span class="badge badge-warning">Tidak Tersedia</span>';
+                                                            }
                                                        ?>
                                                     </td>
                                                 </tr>
@@ -63,7 +74,7 @@
 
                 <div class="row">
                     <div class="col-md-7 mb-4">
-                    <?php if($waktu['jam_mulai'] > date('H:s') AND $waktu['jam_selesai'] < date('H:s')) : ?>
+                    <?php if($waktu['jam_mulai'] < $time AND $waktu['jam_selesai'] > $time) : ?>
                         <div class="hero-inner">
                             <div class="card">
                                 <form action="<?= base_url('dashboard/update_form') ?>" method="post">
@@ -87,7 +98,7 @@
                             </div>
                         </div>
 
-                    <?php else : ?>
+                    <?php elseif($time > $waktu['jam_mulai'] AND $waktu['jam_selesai'] < $time) : ?>
                         <div class="hero-inner">
                             <div class="alert alert-danger" role="alert">
                                <h5>Mohon maaf, saat ini sudah melewati jam operational.</h5>
@@ -104,7 +115,6 @@
                                                     <option value="" disabled="disabled" selected />Pilih</option>
                                                     <?php foreach($jadwal_dokter as $jd) : ?>
                                                     <option value="<?= $jd['kode_dokter'] ?>"><?= $jd['nama_dokter'] ?></option>
-
                                                     <?php endforeach; ?>
                                             </select>
                                         </div>

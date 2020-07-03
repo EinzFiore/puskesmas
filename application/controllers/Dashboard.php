@@ -80,6 +80,7 @@ class Dashboard extends CI_Controller
 
     function daftar_lanjut()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $data['judul'] = 'Daftar';
         $data['user'] = $this->db->get_where('tbl_user',['email' => $this->session->userdata('email')])->row_array();
         $tgl = date('Y-m-d');
@@ -99,6 +100,7 @@ class Dashboard extends CI_Controller
 
         $data['day'] = date("w");
         $data['dayNext'] = date("w", strtotime("+3 day"));
+        $data['time'] = date('H');
         $this->load->view('front/templates_pasien/header', $data);
         $this->load->view('front/templates_pasien/sidebar', $data);
         $this->load->view('front/pasien/daftar_lanjut', $data);

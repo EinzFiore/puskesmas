@@ -160,6 +160,21 @@ function noadaOtomatis(){
     return $kodeBaru;
 }
 
+function noPengadaAuto(){
+    $ci = get_instance();
+    $today = date('Y-m-d');
+    // mencari kode barang dengan nilai paling besar
+    $query = "SELECT max(id_pengadaan) as maxPengadaan FROM tbl_pengadaan_obat where tgl_transaksi='$today'";
+    $data = $ci->db->query($query)->row_array();
+    $kode = $data['maxPengadaan'];
+    $noUrut = (int) substr($kode, 0, 4);
+    $noUrut++;
+    $kodeBaru = sprintf("%04s", $noUrut);//sprintf berfungsi untuk menampilkan kodebaru yang diambil
+                                          //berdasarkan no_urut, "%04s" berfungsi untuk menampilkan berapa karakter yang ingin ditampilkan kalau %04s berarti yang ditampilkan hanya 4 karakter
+    return $kodeBaru;
+}
+
+
 function noPengadaOtomatis(){
     $ci = get_instance();
     $today = date('Y-m-d');

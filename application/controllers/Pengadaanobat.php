@@ -206,14 +206,14 @@ class Pengadaanobat extends CI_Controller
         if ($this->form_validation->run() != FALSE) {
 			$this->create();
 		} else {
-
+            $kodeObat = $this->input->post('kode_obat', TRUE);
 			$data = array(
 
                 'id_pengadaan' => $this->input->post('id_pengadaan', TRUE),
 				'no_trans' => $this->input->post('no_trans', TRUE),
 				'supplier' => $this->input->post('supplier', TRUE),
-                'kode_obat' => $this->input->post('kode_obat', TRUE),
-				'nama_obat' => $this->input->post('nama_obat', TRUE),
+                'nama_obat' => $this->input->post('nama_obat', TRUE),
+                'kode_obat' => $kodeObat,
 				'jenis_obat' => $this->input->post('jenis_obat', TRUE),
 				'harga_beli' => $this->input->post('harga_beli', TRUE),
 				'jumlah' => $this->input->post('jumlah', TRUE),
@@ -222,18 +222,22 @@ class Pengadaanobat extends CI_Controller
 				'total' => $this->input->post('total', TRUE),
 				'tgl_transaksi' => date('d-m-Y')
  				);
-
+            
 			//eksekusi query insert
-			$this->Tbl_pengadaan_obat_model->insert($data);
-
-			//set pesan data berhasil dibuat
-			 $this->session->set_flashdata('message', '<div class="alert alert-success">Data Berhasil Masuk
+            $this->Tbl_pengadaan_obat_model->insert($data);
+            $dataStok = array(
+                'satuan' => $this->input->post('satuan', TRUE),
+            );
+    
+            $this->db->where('kode_obat',$kodeObat);
+            $this->db->update('tbl_stok_obat',$dataStok);
+             $this->session->set_flashdata('message', '<div class="alert alert-success">Data Berhasil Masuk
             </div>');  
-
-			redirect(site_url('pengadaanobat'));
+    
+            redirect(site_url('pengadaanobat'));
 		}
     }
-    
+
     public function update($id) 
     {
         $row = $this->Tbl_pengadaan_obat_model->get_by_id($id);
