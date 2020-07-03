@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 30, 2020 at 07:49 AM
+-- Generation Time: Jul 03, 2020 at 01:20 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.27
 
@@ -63,7 +63,9 @@ CREATE TABLE `tbl_diagnosa_penyakit` (
 
 INSERT INTO `tbl_diagnosa_penyakit` (`kode_diagnosa`, `nama_penyakit`, `ciri_ciri_penyakit`, `keterangan`, `ciri_ciri_umum`) VALUES
 ('111', 'FLU', 'Hidung Tersumbat, Demam, Pusing, Bersin-Bersin, Hidung Meler', 'Kena Flu', 'Hidung Tersumbat, Hidung Meler, Bersin-Bersin'),
-('112', 'Batuk', 'Tenggorokan Gatal', 'Sakit Ringan', 'Batuk Berdahak dan Batuk Kering');
+('112', 'Batuk', 'Tenggorokan Gatal', 'Sakit Ringan', 'Batuk Berdahak dan Batuk Kering'),
+('113', 'Tekanan Jiwa', 'Sulit Untuk Berfikir', 'Diharuskan menggunakan metode Ruqyah', 'Suka bengong sendiri'),
+('404', 'Sakit Hati', 'Suka update status bucin, sad boy/girl.', 'Tidak Terselamatkan', 'Merasa sakit di hati ketika melihat doi jalan dengannya.');
 
 -- --------------------------------------------------------
 
@@ -235,8 +237,8 @@ CREATE TABLE `tbl_jadwal_praktek_dokter` (
   `kode_dokter` varchar(4) NOT NULL,
   `hari` varchar(13) NOT NULL,
   `day_week` int(1) NOT NULL,
-  `jam_mulai` varchar(13) NOT NULL,
-  `jam_selesai` varchar(13) NOT NULL,
+  `jam_mulai` int(2) NOT NULL,
+  `jam_selesai` int(2) NOT NULL,
   `id_poli` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -245,15 +247,15 @@ CREATE TABLE `tbl_jadwal_praktek_dokter` (
 --
 
 INSERT INTO `tbl_jadwal_praktek_dokter` (`id_jadwal`, `kode_dokter`, `hari`, `day_week`, `jam_mulai`, `jam_selesai`, `id_poli`) VALUES
-(18, 'DU-1', 'Senin - Rabu', 3, '09.00', '12.00', 2),
-(19, 'DU-2', 'Kamis & Sabtu', 6, '09.00', '12.00', 2),
-(20, 'DG-1', 'Senin - Rabu', 3, '09.00', '12.00', 1),
-(21, 'DG-2', 'Kamis - Sabtu', 6, '08.00', '12.00', 1),
-(22, 'DK-1', 'Senin - Rabu', 3, '08.00', '12.00', 4),
-(23, 'DK-2', 'Kamis & Sabtu', 6, '08.00', '12.00', 4),
-(24, 'DU-2', 'Jumat', 5, '08.00', '11.00', 2),
-(25, 'DA-2', 'Senin - Rabu', 3, '08.00', '11.00', 5),
-(26, 'DA-1', 'Kamis - Sabtu', 6, '08.00', '11.00', 5);
+(18, 'DU-1', 'Senin - Rabu', 3, 8, 12, 2),
+(19, 'DU-2', 'Kamis & Sabtu', 6, 8, 12, 2),
+(20, 'DG-1', 'Senin - Rabu', 3, 8, 12, 1),
+(21, 'DG-2', 'Kamis - Sabtu', 6, 8, 12, 1),
+(22, 'DK-1', 'Senin - Rabu', 3, 8, 12, 4),
+(23, 'DK-2', 'Kamis & Sabtu', 6, 8, 12, 4),
+(24, 'DU-2', 'Jumat', 5, 8, 12, 2),
+(25, 'DA-2', 'Senin - Rabu', 3, 8, 12, 5),
+(26, 'DA-1', 'Kamis - Sabtu', 6, 8, 12, 5);
 
 -- --------------------------------------------------------
 
@@ -316,8 +318,11 @@ CREATE TABLE `tbl_obat` (
 --
 
 INSERT INTO `tbl_obat` (`kode_obat`, `nama_obat`, `jenis_obat`, `dosis_aturan_obat`, `satuan`) VALUES
+('0005', 'Obat Pusing', 'Obat-obatan', '1x2', 'Strip'),
 ('001', 'Obat Flu', 'Tablet', '3 x 1', 'Strip'),
-('002', 'Obat Batuk', 'Sirup', '3 x 1', 'Botol');
+('002', 'Obat Batuk', 'Sirup', '3 x 1', 'Botol'),
+('003', 'Sakit Batin', 'Terapi', '2x3', 'Botol'),
+('P-1', 'Bedax', 'Sakit Kepala', '3 x 1', 'Strip');
 
 -- --------------------------------------------------------
 
@@ -380,8 +385,11 @@ INSERT INTO `tbl_pasien` (`no_rekamedis`, `user_id`, `no_ktp`, `no_bpjs`, `nama_
 ('000003', 0, '321625140609098', '11223344556677', 'Icay', 'P', 'Cikampek', '01-11-1995', 'Cikampek', 'BPJS', 0),
 ('000004', 0, '3254241302000003', '-', 'Tony', 'L', 'Cikampek', '27-11-1999', 'Perum CIkampek Indah', 'Umum', 0),
 ('000005', 0, '3254241302000103', '-', 'Anton', 'L', 'Cikampek', '26-10-2007', 'Cikampek', 'Umum', 0),
-('000006', 18, '1234567890123452', '-', 'Jun', 'L', 'Jakarta', '06-02-2000', 'Regensi', 'Umum', 1),
-('000007', 20, '1234567890348739', '-', 'Jojo', 'L', 'Desa Morioh', '06-02-1999', 'Jl. Morioh No.16', 'Umum', 1);
+('000006', 18, '1234567890123452', '-', 'Jun', 'L', 'Jakarta', '06-02-2000', 'Regensi', 'Umum', 0),
+('000007', 20, '1234567890348739', '-', 'Jojo', 'L', 'Desa Morioh', '06-02-1999', 'Jl. Morioh No.16', 'Umum', 1),
+('000008', 21, '1234567890365832', '-', 'Fiore', 'L', 'France', '30-06-2000', 'Jl. Kencoan', 'Umum', 1),
+('000009', 21, '1234567890365832', '-', 'Schzehnz', 'P', 'Cikampek', '06-02-2007', 'Perum Regensi', 'Umum', 0),
+('000010', 22, '1234567890246894', '-', 'Hayyuk', 'L', 'Jakarta', '04-06-2010', 'Perum Regensi', 'Umum', 1);
 
 -- --------------------------------------------------------
 
@@ -449,7 +457,12 @@ INSERT INTO `tbl_pendaftaran` (`no_registrasi`, `no_rawat`, `no_rekamedis`, `use
 ('0001', '2020-06-26-0001', '000005', 0, '2020-06-26', 'DU-2', '2', 'Ibu', 'Orang Tua', 'Cikampek', 'Umum', '-'),
 ('0001', '2020-06-29-0001', '000006', 18, '2020-06-29', 'DA-2', '1', 'Jun Maeda', 'Saudara Kandung', 'Regensi', 'Umum', '-'),
 ('0001', '2020-06-30-0001', '000006', 18, '2020-06-30', 'DA-2', '5', 'Stephen Chow', 'Saudara Kandung', 'Wuhan', 'Umum', '-'),
-('0002', '2020-06-30-0002', '000007', 20, '2020-06-30', 'DA-2', '5', 'Joseph Joestar', 'Orang Tua', 'Jl. Morioh', 'Umum', '-');
+('0002', '2020-06-30-0002', '000007', 20, '2020-06-30', 'DA-2', '5', 'Joseph Joestar', 'Orang Tua', 'Jl. Morioh', 'Umum', '-'),
+('0003', '2020-06-30-0003', '000008', 21, '2020-06-30', 'DA-1', '5', 'Klotze', 'Saudara Kandung', 'Jl. Regensi', 'Umum', '-'),
+('0002', '2020-07-02-0002', '000009', 21, '2020-07-02', 'DA-1', '5', 'Klotze', 'Saudara Kandung', 'Regensi', 'Umum', '-'),
+('0001', '2020-07-03-0001', '000010', 22, '2020-07-03', 'DA-1', '5', 'Jujun Junaedi', 'Orang Tua', 'Perum Regensi', 'Umum', '-'),
+('0002', '2020-07-03-0002', '000010', 22, '2020-07-03', 'DA-1', '2', 'Jujun Junaedi', 'Orang Tua', 'Regensi', 'Umum', '-'),
+('0003', '2020-07-03-0003', '000009', 21, '2020-07-03', '', '2', 'Fiore', 'Saudara Kandung', 'Regensi', 'Umum', '-');
 
 -- --------------------------------------------------------
 
@@ -478,7 +491,8 @@ CREATE TABLE `tbl_pengadaan_obat` (
 
 INSERT INTO `tbl_pengadaan_obat` (`id_pengadaan`, `no_trans`, `supplier`, `kode_obat`, `nama_obat`, `jenis_obat`, `harga_beli`, `jumlah`, `satuan`, `keterangan`, `total`, `tgl_transaksi`) VALUES
 ('0001', 'B-200421-0001', 'Pharos Pharmaceutical', '001', 'Obat Flu', 'Tablet', 9000, 100, 'Strip', 'Gratis', 900000, '21-04-2020'),
-('0001', 'B-200502-0001', 'Pharos Pharmaceutical', '002', 'Obat Batuk', 'Sirup', 7500, 100, 'Botol', 'Gratis', 750000, '02-05-2020');
+('0001', 'B-200502-0001', 'Pharos Pharmaceutical', '002', 'Obat Batuk', 'Sirup', 7500, 100, 'Botol', 'Gratis', 750000, '02-05-2020'),
+('0001', 'B-200703-0001', 'Pharos Pharmaceutical', '0005', 'Obat Pusing', 'Obat-obatan', 10000, 2, 'Strip', 'Bebas', 20000, '03-07-2020');
 
 --
 -- Triggers `tbl_pengadaan_obat`
@@ -577,7 +591,8 @@ CREATE TABLE `tbl_resep_obat` (
 INSERT INTO `tbl_resep_obat` (`kode_resep`, `nama_obat`, `jenis_obat`, `dosis_aturan_obat`, `jumlah_obat`, `no_rawat`, `no_rekamedis`, `tanggal`) VALUES
 (1, 'Obat Flu', 'Tablet', '3 x 1', 10, '2020-04-21-0001', '000001', '2020-04-21'),
 (2, 'Obat Flu', 'Tablet', '3 x 1', 10, '2020-04-22-0001', '000001', '2020-04-22'),
-(3, 'Obat Batuk', 'Sirup', '3 x 1', 1, '2020-05-02-0001', '000003', '2020-05-02');
+(3, 'Obat Batuk', 'Sirup', '3 x 1', 1, '2020-05-02-0001', '000003', '2020-05-02'),
+(4, 'Obat Batuk', 'Tablet', '3x1', 3, '2020-06-30-0002', '000007', '2020-06-30');
 
 -- --------------------------------------------------------
 
@@ -594,17 +609,22 @@ CREATE TABLE `tbl_riwayat_tindakan` (
   `hasil_periksa` varchar(100) NOT NULL,
   `nama_obat` varchar(50) NOT NULL,
   `no_rekamedis` varchar(6) NOT NULL,
-  `tanggal` varchar(10) NOT NULL
+  `tanggal` varchar(10) NOT NULL,
+  `user_id` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_riwayat_tindakan`
 --
 
-INSERT INTO `tbl_riwayat_tindakan` (`id_riwayat_tindakan`, `id_poli`, `kode_penyakit`, `kode_tindakan`, `no_rawat`, `hasil_periksa`, `nama_obat`, `no_rekamedis`, `tanggal`) VALUES
-(37, '2', '111', '111', '2020-04-21-0001', 'Hidung Tersumbat', 'Obat Flu', '000001', '21-04-2020'),
-(38, '5', '111', '111', '2020-04-22-0001', 'Hidung Tersumbat', 'Obat Flu', '000001', '22-04-2020'),
-(39, '2', '112', '112', '2020-05-02-0001', 'Batuk Berdahak', 'Obat Batuk', '000003', '02-05-2020');
+INSERT INTO `tbl_riwayat_tindakan` (`id_riwayat_tindakan`, `id_poli`, `kode_penyakit`, `kode_tindakan`, `no_rawat`, `hasil_periksa`, `nama_obat`, `no_rekamedis`, `tanggal`, `user_id`) VALUES
+(37, '2', '111', '111', '2020-04-21-0001', 'Hidung Tersumbat', 'Obat Flu', '000001', '21-04-2020', 0),
+(38, '5', '111', '111', '2020-04-22-0001', 'Hidung Tersumbat', 'Obat Flu', '000001', '22-04-2020', 0),
+(39, '2', '112', '112', '2020-05-02-0001', 'Batuk Berdahak', 'Obat Batuk', '000003', '02-05-2020', 0),
+(40, '5', '404', '404', '2020-06-30-0002', 'Tidak Terselamatkan', 'Obat Batuk', '000007', '30-06-2020', 20),
+(41, '5', '113', '211', '2020-06-30-0001', 'Baik', 'Obat Batuk', '000006', '30-06-2020', 0),
+(42, '5', '404', '404', '2020-07-02-0002', 'Terselamatkan', 'Obat Batuk', '000009', '02-07-2020', 21),
+(43, '5', '404', '404', '2020-07-03-0001', 'Selamat', 'Obat Flu', '000010', '03-07-2020', 22);
 
 -- --------------------------------------------------------
 
@@ -677,7 +697,7 @@ CREATE TABLE `tbl_stok_obat` (
 
 INSERT INTO `tbl_stok_obat` (`kode_obat`, `jumlah`, `satuan`) VALUES
 ('001', 8890, 'Strip'),
-('002', 100, '');
+('0005', 2, 'Strip');
 
 -- --------------------------------------------------------
 
@@ -722,7 +742,8 @@ INSERT INTO `tbl_tindakan` (`kode_tindakan`, `nama_tindakan`, `tindakan_oleh`, `
 ('211', 'Imunisasi', 'dokter_dan_petugas', 5),
 ('212', 'Periksa Kesehatan', 'dokter', 5),
 ('311', 'Periksa Gigi', 'dokter_dan_petugas', 1),
-('312', 'Cabut Gigi', 'dokter_dan_petugas', 1);
+('312', 'Cabut Gigi', 'dokter_dan_petugas', 1),
+('404', 'Periksa Batin', 'dokter', 5);
 
 -- --------------------------------------------------------
 
@@ -749,8 +770,8 @@ INSERT INTO `tbl_user` (`id_users`, `full_name`, `email`, `password`, `images`, 
 (14, 'Apotek', 'apotek@gmail.com', '$2y$04$dMGLRL0NoywETusrGsaNo.TfHM90UewDVWUMbxoVscfGN9URGpnNK', 'apotek1.png', 4, 'y'),
 (15, 'Pendaftaran', 'pendaftaran@gmail.com', '$2y$04$WDhZhQq7C3ok2BSc1LtMputAcc7k.DFxx23AEdhkxW60NgHi17NHa', 'regis1.png', 5, 'y'),
 (17, 'Admin 2', 'admin.puskesmas@gmail.com', '$2y$04$VK3DNN9k3.HY6r08A0gRsOtQNC/yzunF1X8yRCYTBB9CR2MIaArrW', 'martin_garrix_is_legend_BtDE98_FO3v.jpg', 2, 'y'),
-(18, 'Ahmad Junaedi', 'ahmadjunaedi1412@gmail.com', '$2y$04$6QQJT7LP9zDpofOkCIi62O0HVvxLEaW3TXmY.fwV0iW10NQ91VY46', 'IMG_1592755245.jpg', 7, 'y'),
-(20, 'Jonathan Joestar', 'jojo@gmail.com', '$2y$10$irfO7K37cy541m6aukU6hepAVaoyVJHkbVuoTwfYRYSn3HmGSdX8i', '', 7, 'y');
+(20, 'Jonathan Joestar', 'jojo@gmail.com', '$2y$10$irfO7K37cy541m6aukU6hepAVaoyVJHkbVuoTwfYRYSn3HmGSdX8i', '', 7, 'y'),
+(21, 'Fiore', 'fiore@gmail.com', '$2y$10$k6vlzvx96cx0Oa8/hn7WpO94/bC/lcJVxraxmiqB3PFR1MR5cHkVG', 'illust_55290899_20200622_0128063.jpg', 7, 'y');
 
 -- --------------------------------------------------------
 
@@ -970,13 +991,13 @@ ALTER TABLE `tbl_poli`
 -- AUTO_INCREMENT for table `tbl_resep_obat`
 --
 ALTER TABLE `tbl_resep_obat`
-  MODIFY `kode_resep` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `kode_resep` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_riwayat_tindakan`
 --
 ALTER TABLE `tbl_riwayat_tindakan`
-  MODIFY `id_riwayat_tindakan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_riwayat_tindakan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `tbl_setting`
@@ -988,7 +1009,7 @@ ALTER TABLE `tbl_setting`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_users` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_users` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tbl_user_level`
